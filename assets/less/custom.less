@@ -1,0 +1,33 @@
+.clearfix {
+    *zoom: 1;
+}
+
+.clearfix:after {
+    clear: both;
+    content: "";
+    display: table;
+}
+
+footer {
+    margin-top: 50px;
+    border-top: 2px solid #eeeeee;
+    padding: 40px;
+    height: 150px;
+    background-color: #f1f1f1;
+}
+
+// GRID
+// --------------------------------------------------
+
+// Default 940px grid
+// -------------------------
+@gridColumns:             24;
+@gridColumnWidth:         60px;
+@gridGutterWidth:         20px;
+@gridRowWidth:            (@gridColumns * @gridColumnWidth) + (@gridGutterWidth * (@gridColumns - 1));
+
+
+// Sprite icons path
+// -------------------------
+@iconSpritePath:          "../img/glyphicons-halflings.png";
+@iconWhiteSpritePath:     "../img/glyphicons-halflings-white.png";

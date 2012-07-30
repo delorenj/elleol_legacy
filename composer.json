@@ -10,6 +10,7 @@
         "doctrine/orm": "2.2.*",
         "doctrine/doctrine-bundle": "dev-master",
         "doctrine/data-fixtures": "1.0.*",
+        "doctrine/doctrine-fixtures-bundle": "dev-master",
         "mlehner/gelf-php": "dev-master",
         "symfony/twig-bundle": "2.1.*",
         "twig/extensions": "dev-master",

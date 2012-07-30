@@ -1,5 +1,5 @@
 {
-    "hash": "dde042d4d285ba6163445c63bb519318",
+    "hash": "a14e1a843c54eb9ca16335db2f62a7ab",
     "packages": [
         {
             "package": "doctrine/common",
@@ -18,8 +18,20 @@
         {
             "package": "doctrine/doctrine-bundle",
             "version": "dev-master",
+            "alias-pretty-version": "1.0.x-dev",
+            "alias-version": "1.0.9999999.9999999-dev"
+        },
+        {
+            "package": "doctrine/doctrine-bundle",
+            "version": "dev-master",
             "source-reference": "ed8d02b491512f947fdb2f8b665dc8fd72b5879c",
             "commit-date": "1343657020"
+        },
+        {
+            "package": "doctrine/doctrine-fixtures-bundle",
+            "version": "dev-master",
+            "source-reference": "a5103a71bcd9b2f851ca6c16519a077784a3184a",
+            "commit-date": "1341472847"
         },
         {
             "package": "doctrine/orm",
@@ -118,12 +130,6 @@
         {
             "package": "symfony/assetic-bundle",
             "version": "dev-master",
-            "alias-pretty-version": "2.1.x-dev",
-            "alias-version": "2.1.9999999.9999999-dev"
-        },
-        {
-            "package": "symfony/assetic-bundle",
-            "version": "dev-master",
             "source-reference": "24df9ede95084be882aeb557eaef5b761cfa00e0",
             "commit-date": "1343684934"
         },
@@ -177,6 +183,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "doctrine/doctrine-bundle": 20,
+        "doctrine/doctrine-fixtures-bundle": 20,
         "mlehner/gelf-php": 20,
         "twig/extensions": 20,
         "symfony/assetic-bundle": 20,

@@ -1,0 +1,23 @@
+{
+  "name": "elleol",
+  "version": "0.0.1",
+  "title": "ElleOL Designs",
+  "description": "Unique invitations for unique events.",
+  "homepage": "http://elleol.com",
+  "author": {
+    "name": "Jarad DeLorenzo",
+    "url": "http://jaradd.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/delorenj/elleol.git"
+  },
+  "dependencies" : {
+    "grunt": "latest",
+    "grunt-css": "0.2.0",
+    "grunt-compare-size": "0.1.4",
+    "grunt-html": "0.1.1",
+    "request": "2.9.153",  	
+    "grunt-less":  "latest"
+  }
+}
