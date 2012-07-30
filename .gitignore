@@ -7,3 +7,4 @@ vendor
 composer.phar
 *.sublime-workspace
 node_modules
+*~

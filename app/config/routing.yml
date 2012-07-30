@@ -1,3 +1,11 @@
+ElleOLAdminBundle:
+    resource: "@ElleOLAdminBundle/Resources/config/routing.yml"
+    prefix:   /
+
+ElleOLSiteBundle:
+    resource: "@ElleOLSiteBundle/Resources/config/routing.yml"
+    prefix:   /
+
 # Internal routing configuration to handle ESI
 #_internal:
 #    resource: "@FrameworkBundle/Resources/config/routing/internal.xml"

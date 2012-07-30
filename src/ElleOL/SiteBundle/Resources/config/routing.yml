@@ -1,0 +1,3 @@
+ElleOLSiteBundle_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: ElleOLSiteBundle:Default:index }

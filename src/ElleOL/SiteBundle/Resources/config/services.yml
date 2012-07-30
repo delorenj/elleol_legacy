@@ -1,0 +1,7 @@
+parameters:
+#    elle_ol_site.example.class: ElleOL\SiteBundle\Example
+
+services:
+#    elle_ol_site.example:
+#        class: %elle_ol_site.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
