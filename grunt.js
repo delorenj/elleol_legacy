@@ -40,6 +40,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks( "grunt-css" );
   grunt.loadNpmTasks( "grunt-html" );
   grunt.loadNpmTasks('grunt-less');
+  grunt.loadNpmTasks('grunt-shell');
   grunt.loadTasks( "build/tasks" );
 
   grunt.registerHelper( "strip_all_banners", function( filepath ) {
@@ -79,6 +80,20 @@ module.exports = function(grunt) {
       banner: createBanner(),
       bannerAll: createBanner( elleolFiles ),
       bannerCSS: createBanner( cssFiles )      
+    },
+    shell: {
+      load_fixtures: {
+        command: "php app/console doctrine:mongodb:fixtures:load"
+      },
+      update_db: {
+        command: "php app/console doctrine:mongodb:schema:update"
+      },
+      generate_site_docs: {
+        command: "php app/console doctrine:mongodb:generate:documents ElleOLSiteBundle"
+      },
+      generate_admin_docs: {
+        command: "php app/console doctrine:mongodb:generate:documents ElleOLAdminBundle"
+      }      
     },
     copy: {
       assets: {
@@ -159,4 +174,5 @@ module.exports = function(grunt) {
   grunt.registerTask('prod', 'lint less concat min cssmin copy');  
   grunt.registerTask('js', 'lint concat:js');
   grunt.registerTask('css', 'less concat:css cssmin copy');
+  grunt.registerTask('initdb', 'shell:generate_site_docs shell:generate_admin_docs shell:update_db shell:load_fixtures');
 };

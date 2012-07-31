@@ -1,5 +1,5 @@
 {
-    "hash": "a14e1a843c54eb9ca16335db2f62a7ab",
+    "hash": "f8024a0ddf9753c9f1801ecd0caa07ed",
     "packages": [
         {
             "package": "doctrine/common",
@@ -7,7 +7,9 @@
         },
         {
             "package": "doctrine/data-fixtures",
-            "version": "v1.0.0-ALPHA2"
+            "version": "dev-master",
+            "source-reference": "779c3dfe446b6da893be87b908d6be28345d1e01",
+            "commit-date": "1341780535"
         },
         {
             "package": "doctrine/dbal",
@@ -32,6 +34,24 @@
             "version": "dev-master",
             "source-reference": "a5103a71bcd9b2f851ca6c16519a077784a3184a",
             "commit-date": "1341472847"
+        },
+        {
+            "package": "doctrine/mongodb",
+            "version": "dev-master",
+            "source-reference": "d734f2e3093ad8318da7b7a5a15eb7c8fc2c7687",
+            "commit-date": "1343660187"
+        },
+        {
+            "package": "doctrine/mongodb-odm",
+            "version": "dev-master",
+            "source-reference": "0601520d74777e265c3126571e3b7650a3260a7d",
+            "commit-date": "1343349020"
+        },
+        {
+            "package": "doctrine/mongodb-odm-bundle",
+            "version": "dev-master",
+            "source-reference": "54937e3ac0c0530163f2919f29e9bc7e3e1726a6",
+            "commit-date": "1343719670"
         },
         {
             "package": "doctrine/orm",
@@ -154,8 +174,8 @@
         {
             "package": "symfony/symfony",
             "version": "dev-master",
-            "source-reference": "a172a812960d060cd5dd13e4dcf3b2bc4043a18f",
-            "commit-date": "1343639879"
+            "source-reference": "788e5eb730ad1c0436c519cf0b878fc48b854044",
+            "commit-date": "1343723577"
         },
         {
             "package": "twig/extensions",
@@ -184,6 +204,7 @@
     "stability-flags": {
         "doctrine/doctrine-bundle": 20,
         "doctrine/doctrine-fixtures-bundle": 20,
+        "doctrine/mongodb-odm-bundle": 20,
         "mlehner/gelf-php": 20,
         "twig/extensions": 20,
         "symfony/assetic-bundle": 20,
