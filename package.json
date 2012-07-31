@@ -18,6 +18,7 @@
     "grunt-compare-size": "0.1.4",
     "grunt-html": "0.1.1",
     "request": "2.9.153",  	
-    "grunt-less":  "latest"
+    "grunt-less":  "latest",
+    "grunt-shell": "latest"
   }
 }

@@ -2,6 +2,11 @@
     "folders":
     [
         {
+            "name": "Root",
+            "path": "/Applications/MAMP/htdocs/elleol",
+            "folder_exclude_patterns": ["app/cache", "app/logs", "node_modules", "vendor"]
+        },
+        {
             "path": "assets",
             "name": "Assets",
             "folder_exclude_patterns": ["assets/css"]

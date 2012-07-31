@@ -1,0 +1,13 @@
+ElleOL\SiteBundle\Document\Product:
+    repositoryClass: ElleOL\SiteBundle\Repository\ProductRepository
+    fields:
+        id:
+            id: true
+        name:
+            type: string
+        price:
+            type: float
+        description:
+            type: string
+        image:
+            type: string

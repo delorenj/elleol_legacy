@@ -1,44 +1,44 @@
 <?php
 
-namespace ElleOL\SiteBundle\Entity;
+namespace ElleOL\SiteBundle\Document;
 
-use Doctrine\ORM\Mapping as ORM;
+
 
 /**
- * ElleOL\SiteBundle\Entity\Product
+ * ElleOL\SiteBundle\Document\Product
  */
 class Product
 {
     /**
-     * @var integer $id
+     * @var MongoId $id
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string $name
      */
-    private $name;
+    protected $name;
 
     /**
      * @var float $price
      */
-    private $price;
+    protected $price;
 
     /**
-     * @var text $description
+     * @var string $description
      */
-    private $description;
+    protected $description;
 
     /**
      * @var string $image
      */
-    private $image;
+    protected $image;
 
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return id $id
      */
     public function getId()
     {
@@ -60,7 +60,7 @@ class Product
     /**
      * Get name
      *
-     * @return string 
+     * @return string $name
      */
     public function getName()
     {
@@ -82,7 +82,7 @@ class Product
     /**
      * Get price
      *
-     * @return float 
+     * @return float $price
      */
     public function getPrice()
     {
@@ -92,7 +92,7 @@ class Product
     /**
      * Set description
      *
-     * @param text $description
+     * @param string $description
      * @return Product
      */
     public function setDescription($description)
@@ -104,7 +104,7 @@ class Product
     /**
      * Get description
      *
-     * @return text 
+     * @return string $description
      */
     public function getDescription()
     {
@@ -126,7 +126,7 @@ class Product
     /**
      * Get image
      *
-     * @return string 
+     * @return string $image
      */
     public function getImage()
     {
