@@ -1,13 +1,100 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<html lang="en">
+<head>
+    {% block head %}
+        <meta charset="utf-8">
+        <title>{% block title %}ElleOL{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        {% block stylesheets %}
+            <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('css/styles.min.css') }}" />            
+         {% endblock %}
+        <!-- Le styles -->
+
+        <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="{{ asset('//html5shim.googlecode.com/svn/trunk/html5.js') }}"></script>
+        <![endif]-->
+
+        <!-- Le fav and touch icons -->
+        <link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}">
+        <link rel="apple-touch-icon" href="{{ asset('img/apple-touch-icon.png') }}">
+        <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('img/apple-touch-icon-72x72.png') }}">
+        <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('img/apple-touch-icon-114x114.png') }}">
+    {% endblock %}  
+
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <a class="brand" href="#">ElleOL</a>
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        {% block navlist %}
+                            <li class="{% if app.request.attributes.get('_route') == '_about_index' %}active{% endif %}"><a href="{{path ('_about_index')}}">About</a></li>
+                            <li class="{% if app.request.attributes.get('_route') == '_contact_index' %}active{% endif %}"><a href="{{path ('_contact_index')}}">Contact</a></li>
+                            {% if is_granted('ROLE_USER') %}
+                                <li class="{% if app.request.attributes.get('_route') == '_my_designs_index' %}active{% endif %}"><a href="{{path ('_my_designs_index')}}">My Designs</a></li>
+                            {% endif %}
+                            <li class="divider-vertical"></li>
+                            <li class="{% if app.request.attributes.get('_route') == '_custom_design_index' %}active{% endif %}"><a href="{{ path("_custom_design_index") }}">Custom Designs</a></li>
+                        {% endblock %}                        
+                    </ul>
+                    <ul class="nav pull-right">                        
+                        {% if is_granted('ROLE_USER') %}
+                            {% block navwidgets %}
+                                <li class="divider-vertical"></li>
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                        {% if app.user.username %}
+                                            {{app.user.username}}<b class="caret"></b>
+                                        {% else %}
+                                            {{app.user.firstName}} {{app.user.lastName|slice(0, 1)}}.<b class="caret"></b>
+                                        {% endif %}
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                      <li class=""><a href="#"><i class="icon-user"></i>My Orders</a></li>
+                                      <li class=""><a href="#"><i class="icon-user"></i>My Messages</a></li>                                      
+                                      <li class=""><a href="#"><i class="icon-question-sign"></i>Help</a></li>                                      
+                                      <li class=""><a href="#"><i class="icon-eject"></i>Logout</a></li>
+                                    </ul>       
+                                </li>
+                            {% endblock %}
+                        {% else %}
+                        <li><a href="#">Login</a></li>                        
+                        {% endif %}
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
+
+    <div class="container content">
+        {% block body %}
+        {% endblock %}
+    </div> <!-- /container -->
+   <footer>
+        {% block footer %}
+        {% endblock %}                
+    </footer>
+    {% block javascripts %}
+            <script data-main="{{ asset('js/main') }}" src="{{ asset('js/lib/require.js') }}"></script>
+            <script type="text/javascript">
+                require(['main'], function() {
+                    require(['bootstrap', 'jQuery','underscore', 'backbone', 'handlebars'], function() {
+                        {% block jssetup %}{% endblock %}
+                    });
+                });
+            </script>
+    {% endblock %}
+
+</body>
 </html>

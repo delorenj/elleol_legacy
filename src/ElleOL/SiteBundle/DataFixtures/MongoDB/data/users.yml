@@ -1,0 +1,9 @@
+admin:
+  username: "admin"
+  email: "admin@taco.net"
+  password: "test"
+
+customer:
+  username: "flippy"
+  email: "flippy@taco.net"
+  password: "test"

@@ -1,3 +1,16 @@
 ElleOLSiteBundle_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: ElleOLSiteBundle:Default:index }
+    pattern:  /
+    defaults: { _controller: ElleOLSiteBundle:Product:index }
+
+_about_index:
+    pattern: /about
+    defaults: { _controller: ElleOLAdminBundleSiteBundle:About:index }
+
+_contact_index:
+    pattern: /contact
+    defaults: { _controller: ElleOLAdminBundleSiteBundle:Contact:index }
+
+_custom_design_index:
+    pattern: /custom
+    defaults: { _controller: ElleOLAdminBundleSiteBundle:CustomDesign:index }
+

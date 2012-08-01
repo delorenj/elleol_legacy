@@ -1,0 +1,15 @@
+ElleOL\SiteBundle\Document\User:
+    repositoryClass: ElleOL\SiteBundle\Repository\UserRepository
+    fields:
+        id:
+            id: true
+        username:
+            type: string
+        salt:
+            type: string
+        password:
+            type: string
+        email:
+            type: string
+        isActive:
+            type: boolean
