@@ -4,7 +4,6 @@
     #<IfModule mod_vhost_alias.c>
     #    RewriteBase /
     #</IfModule>
-
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^(.*)$ app.php [QSA,L]
 </IfModule>

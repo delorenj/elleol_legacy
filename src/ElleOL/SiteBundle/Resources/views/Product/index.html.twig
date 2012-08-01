@@ -1,5 +1,50 @@
 {% extends "ElleOLSiteBundle::layout.html.twig" %}
 
+{% block jssetup %}
+    require(['elleol/Product/index/setup'], function() {
+    });
+{% endblock %}
+
 {% block content %}
-hi
+<ul class="cards">
+	<li>
+		<div class="flip">
+			<div class="card">
+				<div class="face front">
+					<img src="http://placehold.it/240x340">
+				</div>
+				<div class="face back">
+					<h1>Untitled</h1>
+					<div class="price">$12</div>
+				</div>
+			</div>
+		</div>
+	</li>
+	<li>
+		<div class="flip">
+			<div class="card">
+				<div class="face front">
+					<img src={{asset("/img/bd30.png")}}>
+				</div>
+				<div class="face back">
+					<h1>Birthday!</h1>
+					<div class="price">$24</div>
+				</div>
+			</div>
+		</div>
+	</li>
+	<li>
+		<div class="flip">
+			<div class="card">
+				<div class="face front">
+					<img src={{asset("/img/bbq.png")}}>
+				</div>
+				<div class="face back">
+					<h1>Beer-B-Q Card!</h1>
+					<div class="price">$16</div>
+				</div>
+			</div>
+		</div>
+	</li>
+</ul>
 {% endblock %}
