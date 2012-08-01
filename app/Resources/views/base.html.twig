@@ -27,74 +27,71 @@
 
 </head>
 <body>
-    <div class="navbar">
-        <div class="navbar-inner">
-            <div class="container">
-                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
-                <a class="brand" href="#">ElleOL</a>
-                <div class="nav-collapse">
-                    <ul class="nav">
-                        {% block navlist %}
-                            <li class="{% if app.request.attributes.get('_route') == '_about_index' %}active{% endif %}"><a href="{{path ('_about_index')}}">About</a></li>
-                            <li class="{% if app.request.attributes.get('_route') == '_contact_index' %}active{% endif %}"><a href="{{path ('_contact_index')}}">Contact</a></li>
-                            {% if is_granted('ROLE_USER') %}
-                                <li class="{% if app.request.attributes.get('_route') == '_my_designs_index' %}active{% endif %}"><a href="{{path ('_my_designs_index')}}">My Designs</a></li>
-                            {% endif %}
-                            <li class="divider-vertical"></li>
-                            <li class="{% if app.request.attributes.get('_route') == '_custom_design_index' %}active{% endif %}"><a href="{{ path("_custom_design_index") }}">Custom Designs</a></li>
-                        {% endblock %}                        
-                    </ul>
-                    <ul class="nav pull-right">                        
-                        {% if is_granted('ROLE_USER') %}
-                            {% block navwidgets %}
-                                <li class="divider-vertical"></li>
-                                <li class="dropdown">
-                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                        {% if app.user.username %}
-                                            {{app.user.username}}<b class="caret"></b>
-                                        {% else %}
-                                            {{app.user.firstName}} {{app.user.lastName|slice(0, 1)}}.<b class="caret"></b>
-                                        {% endif %}
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                      <li class=""><a href="#"><i class="icon-user"></i>My Orders</a></li>
-                                      <li class=""><a href="#"><i class="icon-user"></i>My Messages</a></li>                                      
-                                      <li class=""><a href="#"><i class="icon-question-sign"></i>Help</a></li>                                      
-                                      <li class=""><a href="#"><i class="icon-eject"></i>Logout</a></li>
-                                    </ul>       
-                                </li>
-                            {% endblock %}
-                        {% else %}
-                        <li><a href="#">Login</a></li>                        
-                        {% endif %}
-                    </ul>
-                </div><!--/.nav-collapse -->
+    <div class="container">
+        <header id="header">
+            <div class="navbar navbar-fixed-top" role="navigation">
+                <div class="navbar-inner">
+                    <div class="container">
+                        <a class="brand" href="#">ElleOL Designs</a>                
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                {% block navlist %}
+                                    <li class="{% if app.request.attributes.get('_route') == '_about_index' %}active{% endif %}"><a href="{{path ('_about_index')}}">About</a></li>
+                                    <li class="{% if app.request.attributes.get('_route') == '_contact_index' %}active{% endif %}"><a href="{{path ('_contact_index')}}">Contact</a></li>
+                                    {% if is_granted('ROLE_USER') %}
+                                        <li class="{% if app.request.attributes.get('_route') == '_my_designs_index' %}active{% endif %}"><a href="{{path ('_my_designs_index')}}">My Designs</a></li>
+                                    {% endif %}
+                                    <li class="divider-vertical"></li>
+                                    <li class="{% if app.request.attributes.get('_route') == '_custom_design_index' %}active{% endif %}"><a href="{{ path("_custom_design_index") }}">Custom Designs</a></li>
+                                {% endblock %}                        
+                            </ul>
+                            <ul class="nav pull-right">                        
+                                {% if is_granted('ROLE_USER') %}
+                                    {% block navwidgets %}
+                                        <li class="divider-vertical"></li>
+                                        <li class="dropdown">
+                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                                {% if app.user.username %}
+                                                    {{app.user.username}}<b class="caret"></b>
+                                                {% else %}
+                                                    {{app.user.firstName}} {{app.user.lastName|slice(0, 1)}}.<b class="caret"></b>
+                                                {% endif %}
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                              <li class=""><a href="#"><i class="icon-user"></i>My Orders</a></li>
+                                              <li class=""><a href="#"><i class="icon-user"></i>My Messages</a></li>                                      
+                                              <li class=""><a href="#"><i class="icon-question-sign"></i>Help</a></li>                                      
+                                              <li class=""><a href="#"><i class="icon-eject"></i>Logout</a></li>
+                                            </ul>       
+                                        </li>
+                                    {% endblock %}
+                                {% else %}
+                                <li><a href="#">Login</a></li>                        
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </header>
+        <div class="container content">
+            {% block body %}
+            {% endblock %}
         </div>
-    </div>
-
-    <div class="container content">
-        {% block body %}
-        {% endblock %}
-    </div> <!-- /container -->
-   <footer>
-        {% block footer %}
-        {% endblock %}                
-    </footer>
-    {% block javascripts %}
-            <script data-main="{{ asset('js/main') }}" src="{{ asset('js/lib/require.js') }}"></script>
-            <script type="text/javascript">
-                require(['main'], function() {
-                    require(['bootstrap', 'jQuery','underscore', 'backbone', 'handlebars'], function() {
-                        {% block jssetup %}{% endblock %}
+       <footer>
+            {% block footer %}
+            {% endblock %}                
+        </footer>
+        {% block javascripts %}
+                <script data-main="{{ asset('js/main') }}" src="{{ asset('js/lib/require.js') }}"></script>
+                <script type="text/javascript">
+                    require(['main'], function() {
+                        require(['bootstrap', 'jQuery','underscore', 'backbone', 'handlebars'], function() {
+                            {% block jssetup %}{% endblock %}
+                        });
                     });
-                });
-            </script>
-    {% endblock %}
-
+                </script>
+        {% endblock %}
+    </div>
 </body>
 </html>
