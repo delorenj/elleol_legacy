@@ -1,3 +1,3 @@
 ElleOLAdminBundle_homepage:
-    pattern:  /hello/{name}
+    pattern:  /admin
     defaults: { _controller: ElleOLAdminBundle:Default:index }

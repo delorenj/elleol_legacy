@@ -5,7 +5,7 @@ jms_security_extra:
 security:
     encoders:
         ElleOL\SiteBundle\Document\User:
-            algorithm:        sha1
+            algorithm:        sha512
             encode_as_base64: false
             iterations:       1
 

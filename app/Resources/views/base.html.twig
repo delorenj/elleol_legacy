@@ -58,10 +58,12 @@
                                                 {% endif %}
                                             </a>
                                             <ul class="dropdown-menu">
-                                              <li class=""><a href="#"><i class="icon-user"></i>My Orders</a></li>
-                                              <li class=""><a href="#"><i class="icon-user"></i>My Messages</a></li>                                      
-                                              <li class=""><a href="#"><i class="icon-question-sign"></i>Help</a></li>                                      
-                                              <li class=""><a href="#"><i class="icon-eject"></i>Logout</a></li>
+                                                {% block logged_in_dropdown %}
+                                                    <li class=""><a href="#"><i class="icon-user"></i>My Orders</a></li>
+                                                    <li class=""><a href="#"><i class="icon-user"></i>My Messages</a></li>                                      
+                                                    <li class=""><a href="#"><i class="icon-question-sign"></i>Help</a></li>                                      
+                                                {% endblock %}   
+                                                <li class=""><a href="#"><i class="icon-eject"></i>Logout</a></li>
                                             </ul>       
                                         </li>
                                     {% endblock %}
