@@ -1,0 +1,20 @@
+ElleOL\UserBundle\Entity\Role:
+    type: entity
+    table: role
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        name:
+            type: string
+            length: 255
+        role:
+            type: string
+            length: 255
+    lifecycleCallbacks: {  }
+    manyToMany:
+        users:
+            targetEntity: User
+            mappedBy: roles

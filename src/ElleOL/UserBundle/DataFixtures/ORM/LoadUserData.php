@@ -1,6 +1,6 @@
 <?php
 
-namespace ElleOL\UserBundle\DataFixtures\MongoDB;
+namespace ElleOL\UserBundle\DataFixtures\ORM;
 
 use Symfony\Component\Yaml\Parser;
 use Symfony\Component\Yaml\Exception\ParseException;
@@ -8,8 +8,8 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use ElleOL\UserBundle\Document\User;
-use ElleOL\UserBundle\Document\Group;
+use ElleOL\UserBundle\Entity\User;
+use ElleOL\UserBundle\Entity\Role;
 
 class LoadUserData implements FixtureInterface, ContainerAwareInterface
 {
@@ -20,19 +20,19 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
         $this->container = $container;
     }
 
-    protected function createGroups($manager) {
+    protected function createRoles($manager) {
         $yaml = new Parser();
         $factory = $this->container->get('security.encoder_factory');
 
         try {
-            $value = $yaml->parse(file_get_contents('src/ElleOL/UserBundle/DataFixtures/data/groups.yml'));
+            $value = $yaml->parse(file_get_contents('src/ElleOL/UserBundle/DataFixtures/data/roles.yml'));
         } catch (ParseException $e) {
             printf("Unable to parse the YAML string: %s", $e->getMessage());
         }   
-        foreach($value as $group) {
-            $g = new Group();
-            $g->setName($group["name"]);
-            $g->setRole($group["role"]);
+        foreach($value as $role) {
+            $g = new Role();
+            $g->setName($role["name"]);
+            $g->setRole($role["role"]);
             $manager->persist($g);
         }
         $manager->flush();
@@ -40,7 +40,7 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
 
     public function load(ObjectManager $manager)
     {
-        $this->createGroups($manager);
+        $this->createRoles($manager);
 
         $yaml = new Parser();
         $factory = $this->container->get('security.encoder_factory');
@@ -52,21 +52,21 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
         }   
         foreach($value as $user) {
             $p = new User();
-            $manager->persist($p);
-            $manager->flush();
+            $p->setUsername($user["username"]);
+            $p->setEmail($user["email"]);            
             $encoder = $factory->getEncoder($p);  
             $encpassword = $encoder->encodePassword($user["password"], $p->getSalt());      
-            $p->setPassword($encpassword);
-            $p->setUsername($user["username"]);
-            $p->setEmail($user["email"]);
+            $p->setPassword($encpassword);            
+            $manager->persist($p);
+            $manager->flush();
 
-            foreach($user["groups"] as $group) {
-                $go = $manager->getRepository("ElleOLUserBundle:Group")->findOneByName($group);
+            foreach($user["roles"] as $role) {
+                $go = $manager->getRepository("ElleOLUserBundle:Role")->findOneByName($role);
                 //$go = array_values($go);
-                $p->addGroups($go);                
+                $p->addRole($go);                
                 $manager->persist($p);
                 $manager->flush();
-                $go->addUsers($p);
+                $go->addUser($p);
                 $manager->persist($go);
                 $manager->flush();
             }            

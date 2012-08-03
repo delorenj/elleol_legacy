@@ -4,7 +4,7 @@ jms_security_extra:
 
 security:
     encoders:
-        ElleOL\UserBundle\Document\User:
+        ElleOL\UserBundle\Entity\User:
             algorithm:        sha512
             encode_as_base64: false
             iterations:       1
@@ -15,7 +15,7 @@ security:
 
     providers:
         customers:
-            mongodb: { class: ElleOLUserBundle:User }
+            entity: { class: ElleOLUserBundle:User }
 
     firewalls:
         admin_area:

@@ -1,0 +1,7 @@
+admin:
+  name: "Admin"
+  role: "ROLE_ADMIN"
+
+user:
+  name: "User"
+  role: "ROLE_USER"

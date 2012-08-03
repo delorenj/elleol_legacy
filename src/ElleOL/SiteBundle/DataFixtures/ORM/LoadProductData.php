@@ -1,12 +1,12 @@
 <?php
 
-namespace ElleOL\SiteBundle\DataFixtures\MongoDB;
+namespace ElleOL\SiteBundle\DataFixtures\ORM;
 
 use Symfony\Component\Yaml\Parser;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use ElleOL\SiteBundle\Document\Product;
+use ElleOL\SiteBundle\Entity\Product;
 
 class LoadProductData implements FixtureInterface
 {

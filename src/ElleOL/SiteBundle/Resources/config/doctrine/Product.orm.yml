@@ -1,0 +1,22 @@
+ElleOL\SiteBundle\Entity\Product:
+    type: entity
+    table: product
+    repositoryClass: ElleOL\SiteBundle\Entity\ProductRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        name:
+            type: string
+            length: 255
+        description:
+            type: text
+        price:
+            type: float
+            precision: 2
+        image:
+            type: string
+            length: 255
+    lifecycleCallbacks: {  }

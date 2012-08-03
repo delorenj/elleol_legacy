@@ -2,7 +2,7 @@ admin:
   username: "admin"
   email: "admin@taco.net"
   password: "test"
-  groups:
+  roles:
     - "Admin"
     - "User"
 
@@ -10,5 +10,5 @@ customer:
   username: "flippy"
   email: "flippy@taco.net"
   password: "test"
-  groups:
+  roles:
     - "User"
