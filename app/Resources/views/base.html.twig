@@ -63,12 +63,12 @@
                                                     <li class=""><a href="#"><i class="icon-user"></i>My Messages</a></li>                                      
                                                     <li class=""><a href="#"><i class="icon-question-sign"></i>Help</a></li>                                      
                                                 {% endblock %}   
-                                                <li class=""><a href="#"><i class="icon-eject"></i>Logout</a></li>
+                                                <li class=""><a href="{{ path('logout') }}"><i class="icon-eject"></i>Logout</a></li>
                                             </ul>       
                                         </li>
                                     {% endblock %}
                                 {% else %}
-                                <li><a href="#">Login</a></li>                        
+                                <li><a href="{{ path('login') }}">Login</a></li>                        
                                 {% endif %}
                             </ul>
                         </div>
@@ -77,6 +77,12 @@
             </div>
         </header>
         <div class="container content">
+            {% if app.session.hasFlash('notice') %}
+                <div class="flash-notice">
+                    {{ app.session.flash('notice') }}
+                </div>
+            {% endif %}
+
             {% block content %}
             {% endblock %}
         </div>

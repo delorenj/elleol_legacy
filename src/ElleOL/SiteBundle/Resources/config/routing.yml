@@ -14,3 +14,7 @@ _custom_design_index:
     pattern: /custom
     defaults: { _controller: ElleOLAdminBundleSiteBundle:CustomDesign:index }
 
+_my_designs_index:
+    pattern: /custom
+    defaults: { _controller: ElleOLAdminBundleSiteBundle:MyDesign:index }
+

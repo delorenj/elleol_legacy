@@ -5,14 +5,10 @@ namespace ElleOL\UserBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
 
-class DefaultController extends Controller
+class SecurityController extends Controller
 {
-    public function indexAction($name)
+    public function loginAction()
     {
-        return $this->render('ElleOLUserBundle:Default:index.html.twig', array('name' => $name));
-    }
-
-    public function loginAction() {
         $request = $this->getRequest();
         $session = $request->getSession();
 
@@ -24,10 +20,14 @@ class DefaultController extends Controller
             $session->remove(SecurityContext::AUTHENTICATION_ERROR);
         }
 
-        return $this->render('ElleOLUserBundle:Default:login.html.twig', array(
-            // last username entered by the user
+        return $this->render('ElleOLUserBundle:Security:login.html.twig', array(
             'last_username' => $session->get(SecurityContext::LAST_USERNAME),
             'error'         => $error,
         ));
+    }
+
+    public function logoutAction()
+    {
+        
     }
 }

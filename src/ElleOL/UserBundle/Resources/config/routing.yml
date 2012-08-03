@@ -1,10 +1,13 @@
-ElleOLUserBundle_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: ElleOLUserBundle:Default:index }
+view_profile:
+    pattern:  /profile
+    defaults: { _controller: ElleOLUserBundle:Profile:index }
+
+logout:
+    pattern: /logout
 
 login:
     pattern:   /login
-    defaults:  { _controller: ElleOLUserBundle:Default:login }
+    defaults:  { _controller: ElleOLUserBundle:Security:login }
 
 login_check:
     pattern:   /login_check
