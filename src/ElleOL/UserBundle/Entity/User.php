@@ -3,11 +3,12 @@
 namespace ElleOL\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 /**
  * ElleOL\UserBundle\Entity\User
  */
-class User
+class User implements AdvancedUserInterface
 {
     /**
      * @var integer $id
@@ -201,6 +202,30 @@ class User
      */
     public function getRoles()
     {
-        return $this->roles;
+        return $this->roles->toArray();
     }
+
+    public function isAccountNonExpired()
+    {
+        return true;
+    }
+
+    public function isAccountNonLocked()
+    {
+        return true;
+    }
+
+    public function isCredentialsNonExpired()
+    {
+        return true;
+    }
+
+    public function isEnabled()
+    {
+        return $this->isActive;
+    }    
+
+    public function eraseCredentials()
+    {
+    }    
 }

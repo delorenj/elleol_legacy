@@ -20,7 +20,7 @@ security:
     firewalls:
         admin_area:
             pattern:    ^/admin
-            form_login: ~
+            http_basic: ~
             logout: ~          
         site:
             pattern:    ^/*$

@@ -3,11 +3,12 @@
 namespace ElleOL\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\Role\RoleInterface;
 
 /**
  * ElleOL\UserBundle\Entity\Role
  */
-class Role
+class Role implements RoleInterface
 {
     /**
      * @var integer $id
