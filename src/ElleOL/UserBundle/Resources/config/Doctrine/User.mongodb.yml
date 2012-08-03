@@ -1,5 +1,6 @@
-ElleOL\SiteBundle\Document\User:
-    repositoryClass: ElleOL\SiteBundle\Repository\UserRepository
+ElleOL\UserBundle\Document\User:
+    type: document
+    repositoryClass: ElleOL\UserBundle\Repository\UserRepository
     fields:
         id:
             id: true
@@ -13,3 +14,6 @@ ElleOL\SiteBundle\Document\User:
             type: string
         isActive:
             type: boolean
+    embedMany:
+        groups:
+            targetDocument: Group

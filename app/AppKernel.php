@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new ElleOL\SiteBundle\ElleOLSiteBundle(),
             new ElleOL\AdminBundle\ElleOLAdminBundle(),
+            new ElleOL\UserBundle\ElleOLUserBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

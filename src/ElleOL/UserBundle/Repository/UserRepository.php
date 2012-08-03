@@ -1,6 +1,6 @@
 <?php
 
-namespace ElleOL\SiteBundle\Repository;
+namespace ElleOL\UserBundle\Repository;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
@@ -20,17 +20,16 @@ class UserRepository extends DocumentRepository implements UserProviderInterface
     public function loadUserByUsername($username)
     {
         $q = $this
-            ->createQueryBuilder()
-		   	->where("function() { return this.username == '$username'|| this.email == '$username'; }")
-            ->getQuery()
-        ;
+            ->createQueryBuilder('User')
+            ->where("function() { return this.username == '$username' || this.email == '$username'; }")
+            ->getQuery();        
 
         try {
             // The Query::getSingleResult() method throws an exception
             // if there is no record matching the criteria.
             $user = $q->getSingleResult();
         } catch (NoResultException $e) {
-            throw new UsernameNotFoundException(sprintf('Unable to find an active admin ElleOLSiteBundle:User object identified by "%s".', $username), null, 0, $e);
+            throw new UsernameNotFoundException(sprintf('Unable to find an active admin ElleOLUserBundle:User object identified by "%s".', $username), null, 0, $e);
         }
 
         return $user;

@@ -1,0 +1,10 @@
+ElleOLUserBundle_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: ElleOLUserBundle:Default:index }
+
+login:
+    pattern:   /login
+    defaults:  { _controller: ElleOLUserBundle:Default:login }
+
+login_check:
+    pattern:   /login_check

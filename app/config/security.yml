@@ -4,7 +4,7 @@ jms_security_extra:
 
 security:
     encoders:
-        ElleOL\SiteBundle\Document\User:
+        ElleOL\UserBundle\Document\User:
             algorithm:        sha512
             encode_as_base64: false
             iterations:       1
@@ -15,15 +15,16 @@ security:
 
     providers:
         customers:
-            mongodb: { class: ElleOLSiteBundle:User }
+            mongodb: { class: ElleOLUserBundle:User }
 
     firewalls:
         admin_area:
             pattern:    ^/admin
-            http_basic: ~
+            form_login: ~
+            logout: ~          
         site:
             pattern:    ^/*$
-            anonymous:  ~            
+            anonymous:  ~     
 
     # access_control:
     #     - { path: /*, roles: IS_AUTHENTICATED_ANONYMOUSLY }

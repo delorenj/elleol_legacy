@@ -2,8 +2,13 @@ admin:
   username: "admin"
   email: "admin@taco.net"
   password: "test"
+  groups:
+    - "Admin"
+    - "User"
 
 customer:
   username: "flippy"
   email: "flippy@taco.net"
   password: "test"
+  groups:
+    - "User"

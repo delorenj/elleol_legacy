@@ -1,12 +1,13 @@
 <?php
 
-namespace ElleOL\SiteBundle\Document;
+namespace ElleOL\UserBundle\Document;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 
 /**
- * ElleOL\SiteBundle\Document\User
+ * ElleOL\UserBundle\Document\User
  */
 class User implements AdvancedUserInterface
 {
@@ -41,10 +42,13 @@ class User implements AdvancedUserInterface
     protected $isActive;
 
 
+    protected $groups;
+
     public function __construct()
     {
         $this->isActive = true;
         $this->salt = md5(uniqid(null, true));
+        $this->groups = new ArrayCollection();
     }
 
     /**
@@ -170,14 +174,6 @@ class User implements AdvancedUserInterface
     /**
      * @inheritDoc
      */
-    public function getRoles()
-    {
-        return array('ROLE_USER');
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function eraseCredentials()
     {
     }
@@ -202,4 +198,13 @@ class User implements AdvancedUserInterface
         return $this->isActive;
     }    
 
+    public function getRoles()
+    {
+        return $this->groups;
+    }
+
+    public function addGroups(\ElleOL\UserBundle\Document\Group $groups)
+    {
+        $this->groups[] = $groups;
+    }    
 }

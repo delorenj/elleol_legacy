@@ -1,4 +1,5 @@
 ElleOL\SiteBundle\Document\Product:
+    type: document
     repositoryClass: ElleOL\SiteBundle\Repository\ProductRepository
     fields:
         id:

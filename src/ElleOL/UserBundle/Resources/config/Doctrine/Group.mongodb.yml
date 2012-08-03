@@ -1,0 +1,12 @@
+ElleOL\UserBundle\Document\Group:
+    type: document
+    fields:
+        id:
+            id: true
+        name:
+            type: string
+        role:
+            type: string
+    referenceMany:
+        users:
+            targetDocument: User
