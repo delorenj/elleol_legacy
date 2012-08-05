@@ -1,5 +1,29 @@
 {% extends 'ElleOLAdminBundle::layout.html.twig' %}
 
 {% block content %}
-Test
+	<h1>Product Inventory</h1>
+	<ul class="thumbnails products">
+	{% for item in products %}
+	  <li class="span3">
+	    <div class="thumbnail">
+    	    <a href="#" class="thumbnail">	  	
+				<img src="{{item.image}}"></img>	    	
+			</a>
+			<h4>{{item.name}}</h4>
+			<p>{{item.description}}</p>
+			<p class="small">{{item.price}}</p>	 
+			<div class="btn-toolbar">
+				<div class="btn-group">
+					<a class="btn" href="{{path ('edit_product') }}"><i class="icon-pencil"></i>Edit</a>
+					<a class="btn" href="#"><i class="icon-eye-open"></i>View</a>
+					<a class="btn" href="#"><i class="icon-signal"></i>Stats</a>
+					<a class="btn" href="#"><i class="icon-trash"></i>Delete</a>
+				</div>
+			</div>
+			<!-- <button class="btn btn-mini btn-inverse"><i class="icon-edit icon-white"></i>Edit</button>   	 -->
+	    </div>
+	  </li>
+	{% endfor %}
+	</ul>	
+
 {% endblock %}

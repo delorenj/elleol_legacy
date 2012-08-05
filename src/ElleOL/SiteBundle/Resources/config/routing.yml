@@ -2,19 +2,22 @@ ElleOLSiteBundle_homepage:
     pattern:  /
     defaults: { _controller: ElleOLSiteBundle:Product:index }
 
-_about_index:
+show_product:
+    pattern: /product/{id}
+    defaults: { _controller: ElleOLSiteBundle:Product:show }
+
+about_index:
     pattern: /about
-    defaults: { _controller: ElleOLAdminBundleSiteBundle:About:index }
+    defaults: { _controller: ElleOLSiteBundle:About:index }
 
-_contact_index:
+contact_index:
     pattern: /contact
-    defaults: { _controller: ElleOLAdminBundleSiteBundle:Contact:index }
+    defaults: { _controller: ElleOLSiteBundle:Contact:index }
 
-_custom_design_index:
+custom_design_index:
     pattern: /custom
-    defaults: { _controller: ElleOLAdminBundleSiteBundle:CustomDesign:index }
+    defaults: { _controller: ElleOLSiteBundle:CustomDesign:index }
 
-_my_designs_index:
+my_designs_index:
     pattern: /custom
-    defaults: { _controller: ElleOLAdminBundleSiteBundle:MyDesign:index }
-
+    defaults: { _controller: ElleOLSiteBundle:MyDesign:index }

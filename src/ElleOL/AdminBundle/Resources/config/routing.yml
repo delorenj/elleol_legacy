@@ -1,3 +1,34 @@
 ElleOLAdminBundle_homepage:
     pattern:  /admin
     defaults: { _controller: ElleOLAdminBundle:Default:index }
+
+new_product:
+	pattern: /admin/product/new
+	defaults: { _controller: ElleOLAdminBundle:Product:new }
+	_method: GET
+
+create_product:
+	pattern: /admin/product/create
+	defaults: { _controller: ElleOLAdminBundle:Product:create }
+	_method: POST
+
+edit_product:
+	pattern: /admin/product/{id}/edit
+	defaults: { _controller: ElleOLAdminBundle:Product:edit }
+	_method: GET
+	requirements:
+		id: \d+
+
+update_product:
+	pattern: /admin/product/{id}/update
+	defaults: { _controller: ElleOLAdminBundle:Product:update }
+	_method: PUT
+	requirements:
+		id: \d+
+
+delete_product:
+	pattern: /admin/product/{id}/delete
+	defaults: { _controller: ElleOLAdminBundle:Product:delete }
+	_method: DELETE
+	requirements:
+		id: \d+

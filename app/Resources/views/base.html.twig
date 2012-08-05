@@ -36,13 +36,13 @@
                         <div class="nav-collapse collapse">
                             <ul class="nav">
                                 {% block navlist %}
-                                    <li class="{% if app.request.attributes.get('_route') == '_about_index' %}active{% endif %}"><a href="{{path ('_about_index')}}">About</a></li>
-                                    <li class="{% if app.request.attributes.get('_route') == '_contact_index' %}active{% endif %}"><a href="{{path ('_contact_index')}}">Contact</a></li>
+                                    <li class="{% if app.request.attributes.get('_route') == 'about_index' %}active{% endif %}"><a href="{{path ('about_index')}}">About</a></li>
+                                    <li class="{% if app.request.attributes.get('_route') == 'contact_index' %}active{% endif %}"><a href="{{path ('contact_index')}}">Contact</a></li>
                                     {% if is_granted('ROLE_USER') %}
-                                        <li class="{% if app.request.attributes.get('_route') == '_my_designs_index' %}active{% endif %}"><a href="{{path ('_my_designs_index')}}">My Designs</a></li>
+                                        <li class="{% if app.request.attributes.get('_route') == 'my_designs_index' %}active{% endif %}"><a href="{{path ('my_designs_index')}}">My Designs</a></li>
                                     {% endif %}
                                     <li class="divider-vertical"></li>
-                                    <li class="{% if app.request.attributes.get('_route') == '_custom_design_index' %}active{% endif %}"><a href="{{ path("_custom_design_index") }}">Custom Designs</a></li>
+                                    <li class="{% if app.request.attributes.get('_route') == 'custom_design_index' %}active{% endif %}"><a href="{{ path("custom_design_index") }}">Custom Designs</a></li>
                                 {% endblock %}                        
                             </ul>
                             <ul class="nav pull-right">                        

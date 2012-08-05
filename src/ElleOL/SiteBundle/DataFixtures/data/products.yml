@@ -2,10 +2,10 @@
   name:    "Happy Birthday"
   description: "This is a hot description for toast and man"
   price: 15.99
-  image: "http://placehold.it/240x340"
+  image: "/img/bd30.png"
 
 2:
   name:    "Beer-B-Q"
   description: "Thanks for bringing me a bag of floap."
   price: 24.99
-  image: "http://placehold.it/240x340"
+  image: "/img/bbq.png"
