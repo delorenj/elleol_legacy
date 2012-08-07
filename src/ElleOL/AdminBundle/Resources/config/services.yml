@@ -1,7 +1,7 @@
 parameters:
-#    elle_ol_admin.example.class: ElleOL\AdminBundle\Example
+    upload_helper.class: ElleOL\AdminBundle\Services\FileUploadHelper
 
 services:
-#    elle_ol_admin.example:
-#        class: %elle_ol_admin.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    upload_helper:
+        class:  %upload_helper.class%
+        arguments: [@security.context, @logger]

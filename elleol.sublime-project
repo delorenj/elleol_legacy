@@ -4,7 +4,7 @@
         {
             "name": "Root",
             "path": "/Applications/MAMP/htdocs/elleol",
-            "folder_exclude_patterns": ["app/cache", "app/logs", "node_modules", "vendor"]
+            "folder_exclude_patterns": ["app/cache", "app/logs", "node_modules"]
         },
         {
             "path": "assets",

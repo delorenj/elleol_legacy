@@ -1,6 +1,9 @@
-$('.flip').click(function() {
-        $(this).find('.card').addClass('flipped').mouseleave(function() {
-                $(this).removeClass('flipped');
-        });
+$('.flip').each(function() {
+	var height = $(this).find("img").height();
+	$(this).height(height);
+});
+
+$('.flip').click(function() {		
+        $(this).find('.card').toggleClass('flipped');
         return false;
 });

@@ -1,0 +1,35 @@
+{% extends 'form_div_layout.html.twig' %}
+
+{% block field_errors %}
+    {% include '::field_errors.html.twig' %}
+{% endblock field_errors %}
+
+{% block field_row %}
+    {% include '::field_row.html.twig' %}
+{% endblock field_row %}
+
+{% block money_widget %}
+<div class="input-prepend">
+	<span class="add-on">$</span>{{ block('form_widget_simple')|raw }}
+</div>
+{% endblock money_widget %}
+
+
+{% block form_widget_simple %}
+{% spaceless %}
+    {% set type = type|default('text') %}
+    <input class="input-xlarge" type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+{% endspaceless %}
+{% endblock form_widget_simple %}
+
+{% block form_widget_compound %}
+{% spaceless %}
+    <div {{ block('widget_container_attributes') }}>
+        {% if form.parent is empty %}
+            {{ form_errors(form) }}
+        {% endif %}
+        {{ block('form_rows') }}
+        {{ form_rest(form) }}
+    </div>
+{% endspaceless %}
+{% endblock form_widget_compound %}

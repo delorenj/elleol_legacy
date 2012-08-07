@@ -3,6 +3,7 @@ require.config({
   paths: {
     json2: 'lib/json2',    
     jQuery: 'lib/jquery/jquery',
+    jQueryUI: 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui',
     underscore: 'lib/underscore',
     backbone: 'lib/backbone',
     handlebars: 'lib/handlebars',
@@ -12,6 +13,7 @@ require.config({
     SWFUpload: 'lib/swfupload',
     remaining: 'http://www.labs.mimmin.com/countdown/remaining',
     raty: 'lib/jquery.raty',
+    fileuploader: 'lib/fileuploader'
     // fosrouter: '../bundles/fosjsrouting/js/router',
   },
 
@@ -33,6 +35,14 @@ require.config({
       exports: "remaining"
     },
 
+    "jQueryUI": {
+        deps: ["jQuery"]
+    },
+
+    "fileuploader": {
+        exports: "qq"
+    },
+    
     // "fosrouter": {
     //     exports: "Routing"
     // },
