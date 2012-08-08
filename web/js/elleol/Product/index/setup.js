@@ -3,7 +3,13 @@ $('.flip').each(function() {
 	$(this).height(height);
 });
 
-$('.flip').click(function() {		
+$('.flip')
+	.click(function() {		
         $(this).find('.card').toggleClass('flipped');
         return false;
-});
+	})
+	.hover(function() {
+		$(this).closest("li").find(".flippy").show();
+	},function() {
+		$(this).closest("li").find(".flippy").hide();		
+	});
