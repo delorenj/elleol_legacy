@@ -50,16 +50,16 @@ doctrine:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
 
-doctrine_mongodb:
-    connections:
-        default:
-            server: mongodb://localhost:27017
-            options:
-                connect: true
-    default_database: elleol
-    document_managers:
-        default:
-            auto_mapping: true
+# doctrine_mongodb:
+#     connections:
+#         default:
+#             server: mongodb://localhost:27017
+#             options:
+#                 connect: true
+#     default_database: elleol
+#     document_managers:
+#         default:
+#             auto_mapping: true
 
 # Swiftmailer Configuration
 swiftmailer:

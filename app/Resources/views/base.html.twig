@@ -32,7 +32,7 @@
             <div class="navbar navbar-fixed-top" role="navigation">
                 <div class="navbar-inner">
                     <div class="container">
-                        <a class="brand" href="#">ElleOL Designs</a>                
+                        <a class="brand" href="/">ElleOL Designs</a>                
                         <div class="nav-collapse collapse">
                             <ul class="nav">
                                 {% block navlist %}
@@ -47,6 +47,10 @@
                             </ul>
                             <ul class="nav pull-right">                        
                                 {% if is_granted('ROLE_USER') %}
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <li class="{% if app.request.attributes.get('_route') == 'ElleOLAdminBundle_homepage' %}active{% endif %}"><a href="{{path ('ElleOLAdminBundle_homepage')}}">Admin Panel</a></li>
+                                    {% endif %}
+                                
                                     {% block navwidgets %}
                                         <li class="divider-vertical"></li>
                                         <li class="dropdown">
