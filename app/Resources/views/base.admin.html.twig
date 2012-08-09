@@ -36,7 +36,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                   </a>
-                  <a class="brand" href="/">ElleOL Designs</a>
+                  <a class="brand" href="{{path('ElleOLSiteBundle_homepage')}}">ElleOL Designs</a>
                   <div class="btn-group pull-right">
                     <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
                       <i class="icon-user"></i> {{app.user.username}}
@@ -92,7 +92,7 @@
                     {{ app.session.flash('error') }}
                 </div>
             {% endif %}
-            
+
             {% block content %}
             {% endblock %}
           </div>

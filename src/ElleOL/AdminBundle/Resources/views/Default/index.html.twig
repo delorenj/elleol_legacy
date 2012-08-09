@@ -1,5 +1,10 @@
 {% extends 'ElleOLAdminBundle::layout.html.twig' %}
 
+{% block jssetup %}
+    require(['elleol/admin/index/setup'], function() {
+    });                        
+{% endblock %}
+
 {% block content %}
 	<h1>Product Inventory</h1>
 	<ul class="thumbnails products">
@@ -10,17 +15,28 @@
 				<img src="{{item.image}}"></img>	    	
 			</a>
 			<h4>{{item.name}}</h4>
-			<p>{{item.description}}</p>
-			<p class="small">{{item.price}}</p>	 
-			<div class="btn-toolbar">
+			{% if(item.description) %}
+				<p>{{item.description}}</p>
+			{% else %}
+				<p><em>(No Description)</em></p>
+			{% endif %}
+			<p>Created at: {{item.createdAt|date("Y-m-d")}}</p>
+			<p class="small">${{item.price|number_format(2)}}</p>
+			<div class="action-panel">
+				<div class="actions">
+					<a href="{{path ('update_product', {id: item.id}) }}"><i class="icon-pencil icon-white"></i>Edit</a>
+					<a href="#"><i class="icon-signal icon-white"></i>Stats</a>
+					<a href="#"><i class="icon-trash icon-white"></i>Delete</a>
+				</div>
+			</div>
+<!-- 			<div class="btn-toolbar">
 				<div class="btn-group">
 					<a class="btn" href="{{path ('update_product', {id: item.id}) }}"><i class="icon-pencil"></i>Edit</a>
-					<a class="btn" href="#"><i class="icon-eye-open"></i>View</a>
 					<a class="btn" href="#"><i class="icon-signal"></i>Stats</a>
 					<a class="btn" href="#"><i class="icon-trash"></i>Delete</a>
 				</div>
 			</div>
-			<!-- <button class="btn btn-mini btn-inverse"><i class="icon-edit icon-white"></i>Edit</button>   	 -->
+ -->			<!-- <button class="btn btn-mini btn-inverse"><i class="icon-edit icon-white"></i>Edit</button>   	 -->
 	    </div>
 	  </li>
 	{% endfor %}

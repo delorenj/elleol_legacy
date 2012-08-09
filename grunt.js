@@ -163,16 +163,15 @@ module.exports = function(grunt) {
         _: false,
         Routing: false,
         require: false,
-        define: false
+        define: false,
+        qq: false
       }
     },
     uglify: {}
   });
 
   // Default task.
-  grunt.registerTask('default', 'lint less concat copy');
-  grunt.registerTask('prod', 'lint less concat min cssmin copy');  
-  grunt.registerTask('js', 'lint concat:js');
+  grunt.registerTask('default', 'lint less concat min copy');
   grunt.registerTask('css', 'less concat:css cssmin copy');
   grunt.registerTask('initdb', 'shell:generate_site_docs shell:generate_admin_docs shell:update_db shell:load_fixtures');
 };

@@ -1,3 +1,37 @@
-ul.products .btn-toolbar {
-	text-align: center;
+
+ul.products {
+	div.thumbnail {
+		position: relative;
+	}
+
+	.btn-toolbar {
+		text-align: center;
+	}
+
+	div.action-panel {
+		position: absolute;
+		padding-top: 15px;
+		bottom: 0;
+		left: 0px;
+		height: 35px;
+		width: 100%;
+		background-color: #111;
+		display:none;
+  		-webkit-border-radius: 0 0 3px 3px;
+     	-moz-border-radius: 0 0 3px 3px;
+         border-radius: 0 0 3px 3px;	
+     }
+     div.actions {
+     	text-align: center;
+	     a {
+	     	font-size: 1.3em;
+	     	text-decoration: none;
+	     	color: white;
+	     	padding: 10px;
+	     	&:hover {
+	     		color: red;
+	     	}
+	     }     	
+     }
 }
+

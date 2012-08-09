@@ -39,6 +39,13 @@ class Product
 
 
     /**
+    * Assert\Type(type="date")
+    */    
+    private $created_at;
+
+
+
+    /**
      * Get id
      *
      * @return integer 
@@ -134,5 +141,27 @@ class Product
     public function getImage()
     {
         return $this->image;
+    }
+
+    /**
+     * Set created_at
+     *
+     * @param date $createdAt
+     * @return Product
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->created_at = $createdAt;
+        return $this;
+    }
+
+    /**
+     * Get created_at
+     *
+     * @return date 
+     */
+    public function getCreatedAt()
+    {
+        return $this->created_at;
     }
 }

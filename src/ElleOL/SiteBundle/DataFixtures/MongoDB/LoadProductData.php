@@ -25,6 +25,7 @@ class LoadProductData implements FixtureInterface
             $p->setDescription($product["description"]);
             $p->setPrice($product["price"]);
             $p->setImage($product["image"]);
+            $p->setCreatedAt(new \DateTime('now'));
             $manager->persist($p);
         }     
         $manager->flush();
