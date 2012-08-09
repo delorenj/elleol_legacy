@@ -27,10 +27,11 @@
 				</div>		    				
 			</div>
 			<div class="span4">
-				<form action="{{ path('update_product', {id: product.id}) }}" method="put" {{ form_enctype(form) }}>	
+				<form novalidate=true action="{{ path('update_product', {id: product.id}) }}" method="post" {{ form_enctype(form) }}>	
 				    {{ form_row(form.name) }}
 				    {{ form_row(form.description, {'attr': {'rows': 4}}) }}
 				    {{ form_row(form.price) }}
+				    {{ form_rest(form) }}
 				    <button type="submit" class="btn btn-primary">Save</button>
 				</form>					
 			</div>

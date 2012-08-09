@@ -3,9 +3,12 @@
 namespace ElleOL\SiteBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity as UniqueEntity;
 
 /**
  * ElleOL\SiteBundle\Entity\Product
+ * @UniqueEntity("image")
  */
 class Product
 {
@@ -15,7 +18,7 @@ class Product
     private $id;
 
     /**
-     * @var string $name
+     * @Assert\NotBlank()
      */
     private $name;
 
@@ -25,12 +28,12 @@ class Product
     private $description;
 
     /**
-     * @var float $price
+     * @Assert\Type(type="float", message="The value {{ value }} is not a valid {{ type }}.")
      */
     private $price;
 
     /**
-     * @var string $image
+     * 
      */
     private $image;
 

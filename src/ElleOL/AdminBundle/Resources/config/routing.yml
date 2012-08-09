@@ -14,18 +14,10 @@ create_product:
     requirements:
         _method: POST
 
-edit_product:
-    pattern: /admin/product/{id}/edit
-    defaults: { _controller: ElleOLAdminBundle:Product:edit }
-    requirements:
-        _method: GET    
-        id: \d+
-
 update_product:
     pattern: /admin/product/{id}/update
     defaults: { _controller: ElleOLAdminBundle:Product:update }
     requirements:
-        _method: PUT    
         id: \d+
 
 delete_product:

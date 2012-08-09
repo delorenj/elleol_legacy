@@ -13,7 +13,6 @@ class ProductType extends AbstractType
         $builder->add('name');
         $builder->add('price', 'money', array('currency' => 'USD'));
         $builder->add('description', 'textarea');
-        $builder->add('image', 'file');
     }
 
 	public function setDefaultOptions(OptionsResolverInterface $resolver)

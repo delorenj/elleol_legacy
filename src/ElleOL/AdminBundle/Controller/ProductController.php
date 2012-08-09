@@ -20,23 +20,28 @@ class ProductController extends Controller
         return $this->render('ElleOLAdminBundle:Product:new.html.twig');
     }
 
-    public function editAction($id)
-    {
-    	$repo = $this->getDoctrine()->getRepository("ElleOLSiteBundle:Product");
-    	$product = $repo->find($id);
-
-    	if(!$product instanceof Product) {
-            throw new NotFoundHttpException('Product not found');    		
-    	}	
-
-	    $form = $this->createForm(new ProductType(), $product);
-
-        return $this->render('ElleOLAdminBundle:Product:edit.html.twig', array("form"=>$form->createView(), "product" => $product));
-    }    
 
     public function updateAction($id)
     {
-        return $this->render('ElleOLAdminBundle:Product:edit.html.twig');
+        $request = $this->getRequest();
+        $repo = $this->getDoctrine()->getRepository("ElleOLSiteBundle:Product");
+        $product = $repo->find($id);        
+        $form = $this->createForm(new ProductType(), $product);
+
+        if($request->getMethod() == 'POST') {
+            $form->bindRequest($request);
+            if($form->isValid()) {
+                $this->get('logger')->info('UPDATE: here!');
+                $em = $this->getDoctrine()->getEntityManager();
+                $em->persist($product);
+                $em->flush();
+                $this->get('session')->setFlash("notice", "Product Updated Successfully!");
+                return $this->redirect($this->generateUrl('ElleOLAdminBundle_homepage'));
+            } else {
+                $this->get('logger')->info('UPDATE: ' . json_encode($this->getErrorMessages($form)));
+            }
+        }
+        return $this->render('ElleOLAdminBundle:Product:update.html.twig', array("form" => $form->createView(), "product" => $product));
     }   
 
     public function deleteAction($id)
@@ -55,15 +60,45 @@ class ProductController extends Controller
             if(!$p instanceof Product) {
                 throw new NotFoundHttpException("Product not found");
             }
-            $p->setImage("/img/products/" . $request->query->get('qqfile'));
-            $em->persist($p);
-            $em->flush();
+            $oldImage = $p->getImage();
+            $p->setImage("/img/products/" . $request->query->get('qqfile'));            
+            $validator = $this->get('validator');
+            $errors = $validator->validate($p);
 
+            if (count($errors) > 0) {
+                $return = array("responseCode" => 400, "error" => "This product was already posted?");
+                $p->setImage($oldImage);
+            } else {
+                $em->persist($p);
+                $em->flush();
+            }            
         } else {
-            $return = array("responseCode" => 400, "error" => "Didn't work");
+            $return = array("responseCode" => 400, "error" => "Error uploading file");
         }
 
         $return=json_encode($return);//jscon encode the array
         return new Response($return,200,array('Content-Type'=>'application/json')); 
     }
+
+    private function getErrorMessages(\Symfony\Component\Form\Form $form) {
+        $errors = array();
+        foreach ($form->getErrors() as $key => $error) {
+            $template = $error->getMessageTemplate();
+            $parameters = $error->getMessageParameters();
+
+            foreach($parameters as $var => $value){
+                $template = str_replace($var, $value, $template);
+            }
+
+            $errors[$key] = $template;
+        }
+        if ($form->hasChildren()) {
+            foreach ($form->getChildren() as $child) {
+                if (!$child->isValid()) {
+                    $errors[$child->getName()] = $this->getErrorMessages($child);
+                }
+            }
+        }
+        return $errors;
+    }    
 }

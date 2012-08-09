@@ -82,6 +82,17 @@
         </div><!--/span-->
         <div class="span9">
           <div class="row-fluid">
+            {% if app.session.hasFlash('notice') %}
+                <div class="flash-notice">
+                    {{ app.session.flash('notice') }}
+                </div>
+            {% endif %}
+            {% if app.session.hasFlash('error') %}
+                <div class="flash-error">
+                    {{ app.session.flash('error') }}
+                </div>
+            {% endif %}
+            
             {% block content %}
             {% endblock %}
           </div>
