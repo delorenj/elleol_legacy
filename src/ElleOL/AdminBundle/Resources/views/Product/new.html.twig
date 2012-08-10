@@ -7,8 +7,8 @@
 {% endblock %}
 
 {% block content %}
-	<h1>Edit Product <small>{{product.name}}</small></h1>
-	{% set post = 'update_product' %}
+	<h1>New Product <small>{{product.name}}</small></h1>
+	{% set post = 'create_product' %}
 	{% include 'ElleOLAdminBundle::product_form.html.twig' %}
 	
 {% endblock %}

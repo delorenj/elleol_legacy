@@ -10,15 +10,33 @@ use ElleOL\AdminBundle\Form\Type\ProductType as ProductType;
 
 class ProductController extends Controller
 {
-    public function newAction()
-    {
-        return $this->render('ElleOLAdminBundle:Product:new.html.twig');
-    }
-
     public function createAction()
     {
-        return $this->render('ElleOLAdminBundle:Product:new.html.twig');
+        $request = $this->getRequest();
+        $repo = $this->getDoctrine()->getRepository("ElleOLSiteBundle:Product");
+        $product = new Product();      
+        $form = $this->createForm(new ProductType(), $product);
+        $form->bindRequest($request);
+        if($form->isValid()) {
+            $em = $this->getDoctrine()->getEntityManager();
+            $em->persist($product);
+            $em->flush();
+            $this->get('session')->setFlash("notice", "Product Created Successfully!");
+            return $this->redirect($this->generateUrl('ElleOLAdminBundle_homepage'));
+        } else {
+            $this->get('logger')->info('CREATE: ' . json_encode($this->getErrorMessages($form)));
+            return $this->render('ElleOLAdminBundle:Product:new.html.twig', array("form" => $form->createView(), "product" => $product));
+        }
     }
+
+    public function newAction()
+    {
+        $request = $this->getRequest();
+        $repo = $this->getDoctrine()->getRepository("ElleOLSiteBundle:Product");
+        $product = new Product();    
+        $form = $this->createForm(new ProductType(), $product);
+        return $this->render('ElleOLAdminBundle:Product:new.html.twig', array("form" => $form->createView(), "product" => $product));
+    }   
 
 
     public function updateAction($id)
@@ -56,22 +74,22 @@ class ProductController extends Controller
         $result = $uh->handleUpload("/Applications/MAMP/htdocs/elleol/web/img/products/");
         if(array_key_exists("success", $result) && $result["success"] == true) {
             $return = array("success" => true);
-            $p = $this->getDoctrine()->getRepository("ElleOLSiteBundle:Product")->find($id);
-            if(!$p instanceof Product) {
-                throw new NotFoundHttpException("Product not found");
-            }
-            $oldImage = $p->getImage();
-            $p->setImage("/img/products/" . $request->query->get('qqfile'));            
-            $validator = $this->get('validator');
-            $errors = $validator->validate($p);
+            // $p = $this->getDoctrine()->getRepository("ElleOLSiteBundle:Product")->find($id);
+            // if(!$p instanceof Product) {
+            //     throw new NotFoundHttpException("Product not found");
+            // }
+            // $oldImage = $p->getImage();
+            // $p->setImage("/img/products/" . $request->query->get('qqfile'));            
+            // $validator = $this->get('validator');
+            // $errors = $validator->validate($p);
 
-            if (count($errors) > 0) {
-                $return = array("responseCode" => 400, "error" => "This product was already posted?");
-                $p->setImage($oldImage);
-            } else {
-                $em->persist($p);
-                $em->flush();
-            }            
+            // if (count($errors) > 0) {
+            //     $return = array("responseCode" => 400, "error" => "This product was already posted?");
+            //     $p->setImage($oldImage);
+            // } else {
+            //     $em->persist($p);
+            //     $em->flush();
+            // }            
         } else {
             $return = array("responseCode" => 400, "error" => "Error uploading file");
         }
@@ -85,7 +103,6 @@ class ProductController extends Controller
         foreach ($form->getErrors() as $key => $error) {
             $template = $error->getMessageTemplate();
             $parameters = $error->getMessageParameters();
-
             foreach($parameters as $var => $value){
                 $template = str_replace($var, $value, $template);
             }
@@ -95,6 +112,7 @@ class ProductController extends Controller
         if ($form->hasChildren()) {
             foreach ($form->getChildren() as $child) {
                 if (!$child->isValid()) {
+                    $this->get('logger')->info('CREATE: ' . $child->getName());
                     $errors[$child->getName()] = $this->getErrorMessages($child);
                 }
             }

@@ -1,0 +1,30 @@
+	<div class="container">
+		<div class="row">
+			<div class="span4">
+				<div id="upload-area" data-action="{{path('ajax_image_upload', {id: product.id})}}">
+					<ul class="thumbnails">
+						<li class="span4">
+							<a class="thumbnail" href="#">
+								{% if not product.image %}
+									<img src="http://placehold.it/240x340" id="thumb">
+								{% else %}
+									<img src="{{product.image}}" id="thumb">
+								{% endif %}
+							</a>
+						</li>
+					</ul>
+					<div id="imageUploadButton"></div>
+				</div>		    				
+			</div>
+			<div class="span4">
+				<form novalidate=true action="{{ path(post, {id: product.id}) }}" method="post" {{ form_enctype(form) }}>	
+				    {{ form_row(form.name) }}
+				    {{ form_row(form.description, {'attr': {'rows': 4}}) }}
+				    {{ form_row(form.price) }}
+				    {{ form_rest(form) }}
+				    <button type="submit" class="btn btn-primary">Save</button>
+				    <a class="btn btn-primary" href="{{path('ElleOLAdminBundle_homepage')}}">Cancel</a>				    
+				</form>					
+			</div>
+		</div>
+	</div>

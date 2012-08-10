@@ -20,5 +20,5 @@ ElleOL\SiteBundle\Entity\Product:
             type: string
             length: 255
         created_at:
-            type: date
+            type: datetime
     lifecycleCallbacks: {  }

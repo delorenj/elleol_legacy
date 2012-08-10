@@ -6,12 +6,13 @@ $(document).ready(function() {
             action: $("#upload-area").attr("data-action"),
             debug: false,
             onComplete: function(id, fileName, responseJSON){
-                $("#thumb").attr("src", "/img/products/" + fileName);
+                var src = "/img/products/" + fileName;
+                $("#thumb").attr("src", src);
+                $("#product_image").val(src);
             }
         });        
     }
 
-    console.log("here");
     $("ul.products li")
         .mouseenter(function() {
             $(this).find(".thumbnail .action-panel").fadeTo(100, 0.75).find(".btn-toolbar").fadeTo(100, 1);

@@ -33,7 +33,7 @@ class Product
     private $price;
 
     /**
-     * 
+     *  @Assert\NotBlank()
      */
     private $image;
 
