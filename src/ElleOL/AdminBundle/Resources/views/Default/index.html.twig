@@ -18,7 +18,7 @@
 	{% for item in products %}
 	  <li class="span3">
 	    <div class="thumbnail">
-    	    <a href="#" class="thumbnail">	  	
+    	    <a href="{{path('update_product')}}" class="thumbnail">	  	
 				<img src="{{item.image}}"></img>	    	
 			</a>
 			<h4>{{item.name}}</h4>

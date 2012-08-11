@@ -23,7 +23,8 @@ class Product
     private $name;
 
     /**
-     *@ORM\Column(type="text")
+     * @ORM\Column(type="text")
+     * @Assert\NotBlank()     
      */
     private $description;
 
