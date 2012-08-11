@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="ElleOL\UserBundle\Entity\UserRepository")
  * @ORM\Table(name="user")
  */
 class User implements AdvancedUserInterface
