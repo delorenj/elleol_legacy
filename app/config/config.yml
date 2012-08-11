@@ -48,7 +48,15 @@ doctrine:
 
     orm:
         auto_generate_proxy_classes: %kernel.debug%
-        auto_mapping: true
+#        auto_mapping: true
+        default_entity_manager: my_entity_manager
+        entity_managers:
+            my_entity_manager:
+                connection: ~
+                mappings:
+                    ElleOLSiteBundle: ~
+                    ElleOLAdminBundle: ~
+                    ElleOLUserBundle: ~
 
 # doctrine_mongodb:
 #     connections:
