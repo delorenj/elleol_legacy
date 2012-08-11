@@ -25,7 +25,16 @@ class Role implements RoleInterface
      */
     private $role;
 
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     */
+    private $users;
 
+    public function __construct()
+    {
+        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
     /**
      * Get id
      *
@@ -79,16 +88,7 @@ class Role implements RoleInterface
     {
         return $this->role;
     }
-    /**
-     * @var \Doctrine\Common\Collections\ArrayCollection
-     */
-    private $users;
 
-    public function __construct()
-    {
-        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    
     /**
      * Add users
      *

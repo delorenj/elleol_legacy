@@ -3,12 +3,9 @@
 namespace ElleOL\SiteBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity as UniqueEntity;
 
 /**
  * ElleOL\SiteBundle\Entity\Product
- * @UniqueEntity("image")
  */
 class Product
 {
@@ -18,7 +15,7 @@ class Product
     private $id;
 
     /**
-     * @Assert\NotBlank()
+     * @var string $name
      */
     private $name;
 
@@ -28,21 +25,19 @@ class Product
     private $description;
 
     /**
-     * @Assert\Type(type="float", message="The value {{ value }} is not a valid {{ type }}.")
+     * @var float $price
      */
     private $price;
 
     /**
-     *  @Assert\NotBlank()
+     * @var string $image
      */
     private $image;
 
-
     /**
-    * Assert\Type(type="date")
-    */    
+     * @var datetime $created_at
+     */
     private $created_at;
-
 
 
     /**
@@ -146,7 +141,7 @@ class Product
     /**
      * Set created_at
      *
-     * @param date $createdAt
+     * @param datetime $createdAt
      * @return Product
      */
     public function setCreatedAt($createdAt)
@@ -158,7 +153,7 @@ class Product
     /**
      * Get created_at
      *
-     * @return date 
+     * @return datetime 
      */
     public function getCreatedAt()
     {

@@ -40,7 +40,18 @@ class User implements AdvancedUserInterface
      */
     private $isActive;
 
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     */
+    private $roles;
 
+    public function __construct()
+    {
+        $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->isActive = true;
+        $this->salt = md5(uniqid(null, true));        
+    }
+    
     /**
      * Get id
      *
@@ -160,19 +171,7 @@ class User implements AdvancedUserInterface
     {
         return $this->isActive;
     }
-    /**
-     * @var \Doctrine\Common\Collections\ArrayCollection
-     */
 
-    private $roles;
-
-    public function __construct()
-    {
-        $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->isActive = true;
-        $this->salt = md5(uniqid(null, true));        
-    }
-    
     /**
      * Add roles
      *
@@ -227,5 +226,5 @@ class User implements AdvancedUserInterface
 
     public function eraseCredentials()
     {
-    }    
+    }      
 }
