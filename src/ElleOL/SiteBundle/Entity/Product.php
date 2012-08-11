@@ -5,37 +5,40 @@ namespace ElleOL\SiteBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ElleOL\SiteBundle\Entity\Product
+ * @ORM\Entity(repositoryClass="ElleOL\SiteBundle\Entity\ProductRepository")
+ * @ORM\Table(name="product")
  */
 class Product
 {
     /**
-     * @var integer $id
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
-     * @var string $name
+     * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
-     * @var text $description
+     *@ORM\Column(type="text")
      */
     private $description;
 
     /**
-     * @var float $price
+     * @ORM\Column(type="float", scale=2)
      */
     private $price;
 
     /**
-     * @var string $image
+     * @ORM\Column(type="string", length=255)
      */
     private $image;
 
     /**
-     * @var datetime $created_at
+     * @ORM\Column(type="datetime")
      */
     private $created_at;
 

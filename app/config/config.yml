@@ -11,7 +11,7 @@ framework:
         strict_requirements: %kernel.debug%
     form:            true
     csrf_protection: true
-    validation:      { enable_annotations: false }
+    validation:      { enable_annotations: true }
     templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
     default_locale:  %locale%
     trust_proxy_headers: false # Should Request object should trust proxy headers (X_FORWARDED_FOR/HTTP_CLIENT_IP)
@@ -48,15 +48,15 @@ doctrine:
 
     orm:
         auto_generate_proxy_classes: %kernel.debug%
-#        auto_mapping: true
-        default_entity_manager: my_entity_manager
-        entity_managers:
-            my_entity_manager:
-                connection: ~
-                mappings:
-                    ElleOLSiteBundle: ~
-                    ElleOLAdminBundle: ~
-                    ElleOLUserBundle: ~
+        auto_mapping: true
+        # default_entity_manager: my_entity_manager
+        # entity_managers:
+        #     my_entity_manager:
+        #         connection: ~
+        #         mappings:
+        #             ElleOLSiteBundle: ~
+        #             ElleOLAdminBundle: ~
+        #             ElleOLUserBundle: ~
 
 # doctrine_mongodb:
 #     connections:

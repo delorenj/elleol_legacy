@@ -6,42 +6,45 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 /**
- * ElleOL\UserBundle\Entity\User
+ * @ORM\Entity
+ * @ORM\Table(name="user")
  */
 class User implements AdvancedUserInterface
 {
     /**
-     * @var integer $id
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
-     * @var string $username
+     * @ORM\Column(type="string", length=255)
      */
     private $username;
 
     /**
-     * @var string $salt
+     * @ORM\Column(type="string")
      */
     private $salt;
 
     /**
-     * @var string $password
+     * @ORM\Column(type="string")
      */
     private $password;
 
     /**
-     * @var string $email
+     * @ORM\Column(type="string", length=255)
      */
     private $email;
 
     /**
-     * @var boolean $isActive
+     * @ORM\Column(type="boolean")
      */
     private $isActive;
 
     /**
-     * @var \Doctrine\Common\Collections\ArrayCollection
+     * @ORM\ManyToMany(targetEntity="Role", inversedBy="users")
      */
     private $roles;
 

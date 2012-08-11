@@ -6,27 +6,30 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\Role\RoleInterface;
 
 /**
- * ElleOL\UserBundle\Entity\Role
+ * @ORM\Entity
+ * @ORM\Table(name="role")
  */
 class Role implements RoleInterface
 {
     /**
-     * @var integer $id
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
-     * @var string $name
+     * @ORM\Column(type="string", length=50)
      */
     private $name;
 
     /**
-     * @var string $role
+     * @ORM\Column(type="string", length=50)
      */
     private $role;
 
     /**
-     * @var \Doctrine\Common\Collections\ArrayCollection
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="roles")
      */
     private $users;
 
