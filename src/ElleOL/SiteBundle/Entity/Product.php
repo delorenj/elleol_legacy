@@ -21,27 +21,32 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()          
+     * @Assert\MaxLength(limit=100, message="Must be less than {{ limit }} characters")     
+     * @Assert\MinLength(limit=3, message="Must be at least {{ limit }} characters")     
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
-     * @Assert\NotBlank()     
+     * @Assert\MaxLength(limit=255, message="Must be less than {{ limit }} characters")
      */
     private $description;
 
     /**
      * @ORM\Column(type="float", scale=2)
+     * @Assert\NotBlank()     
      */
     private $price;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $image;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime")     
      */
     private $created_at;
 

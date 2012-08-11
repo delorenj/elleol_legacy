@@ -8,3 +8,4 @@ composer.phar
 *.sublime-workspace
 node_modules
 *~
+web/img/products/*

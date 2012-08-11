@@ -1,4 +1,4 @@
-/*! ElleOL Designs - v0.0.1 - 2012-08-09
+/*! ElleOL Designs - v0.0.1 - 2012-08-11
 * http://elleol.com
 * Includes: styles.css
 * Copyright (c) 2012 Jarad DeLorenzo; */
@@ -4443,6 +4443,9 @@ ul.products div.actions a {
 }
 ul.products div.actions a:hover {
   color: red;
+}
+#product_image {
+  width: 190px !important;
 }
 
 /*!

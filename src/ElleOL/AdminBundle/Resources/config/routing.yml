@@ -27,9 +27,8 @@ delete_product:
         _method: DELETE    
         id: \d+
 
-ajax_image_upload:
-    pattern: /admin/product/{id}/upload
+image_upload:
+    pattern: /admin/product/upload
     defaults: { _controller: ElleOLAdminBundle:Product:imageUpload }
     requirements:
         _method: POST
-        id: \d+

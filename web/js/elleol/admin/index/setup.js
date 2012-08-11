@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    if(typeof(qq) != "undefined") {
+    if(typeof(qq) !== "undefined") {
         var uploader = new qq.FileUploader({
             element: $('#imageUploadButton')[0],
             action: $("#upload-area").attr("data-action"),
@@ -10,7 +10,8 @@ $(document).ready(function() {
                 $("#thumb").attr("src", src);
                 $("#product_image").val(src);
             }
-        });        
+        });  
+        $("#imageUploadButton").css("margin", "0");      
     }
 
     $("ul.products li")
@@ -18,7 +19,7 @@ $(document).ready(function() {
             $(this).find(".thumbnail .action-panel").fadeTo(100, 0.75).find(".btn-toolbar").fadeTo(100, 1);
         })
         .mouseleave(function() {
-            $(this).find(".thumbnail .action-panel").fadeTo(100, 0).find(".btn-toolbar").fadeTo(100, 0);;
+            $(this).find(".thumbnail .action-panel").fadeTo(100, 0).find(".btn-toolbar").fadeTo(100, 0);
         });
 
 });

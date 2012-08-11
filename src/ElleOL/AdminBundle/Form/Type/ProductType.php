@@ -22,7 +22,7 @@ class ProductType extends AbstractType
             array('attr' => 
                 array('placeholder' => 'Describe the product, or leave blank.')));
         $builder->add('image', null, array("attr" => array("readonly" => true, "placeholder" => "No image uploaded yet!")));
-
+        // $builder->add('image', 'hidden');
     }
 
 	public function setDefaultOptions(OptionsResolverInterface $resolver)

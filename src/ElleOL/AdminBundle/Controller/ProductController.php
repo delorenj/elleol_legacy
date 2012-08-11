@@ -14,7 +14,8 @@ class ProductController extends Controller
     {
         $request = $this->getRequest();
         $repo = $this->getDoctrine()->getRepository("ElleOLSiteBundle:Product");
-        $product = new Product();      
+        $product = new Product();    
+        $product->setCreatedAt(new \DateTime());  
         $form = $this->createForm(new ProductType(), $product);
         $form->bindRequest($request);
         if($form->isValid()) {
@@ -49,7 +50,6 @@ class ProductController extends Controller
         if($request->getMethod() == 'POST') {
             $form->bindRequest($request);
             if($form->isValid()) {
-                $this->get('logger')->info('UPDATE: here!');
                 $em = $this->getDoctrine()->getEntityManager();
                 $em->persist($product);
                 $em->flush();
@@ -67,29 +67,13 @@ class ProductController extends Controller
         return $this->render('ElleOLAdminBundle:Default:index.html.twig');
     }
 
-    public function imageUploadAction($id) {
+    public function imageUploadAction() {        
         $request = $this->getRequest();
         $em = $this->getDoctrine()->getEntityManager();
         $uh = $this->get('upload_helper');
         $result = $uh->handleUpload("/Applications/MAMP/htdocs/elleol/web/img/products/");
         if(array_key_exists("success", $result) && $result["success"] == true) {
             $return = array("success" => true);
-            // $p = $this->getDoctrine()->getRepository("ElleOLSiteBundle:Product")->find($id);
-            // if(!$p instanceof Product) {
-            //     throw new NotFoundHttpException("Product not found");
-            // }
-            // $oldImage = $p->getImage();
-            // $p->setImage("/img/products/" . $request->query->get('qqfile'));            
-            // $validator = $this->get('validator');
-            // $errors = $validator->validate($p);
-
-            // if (count($errors) > 0) {
-            //     $return = array("responseCode" => 400, "error" => "This product was already posted?");
-            //     $p->setImage($oldImage);
-            // } else {
-            //     $em->persist($p);
-            //     $em->flush();
-            // }            
         } else {
             $return = array("responseCode" => 400, "error" => "Error uploading file");
         }
