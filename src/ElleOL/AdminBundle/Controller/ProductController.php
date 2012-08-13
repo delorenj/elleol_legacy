@@ -73,13 +73,55 @@ class ProductController extends Controller
         $uh = $this->get('upload_helper');
         $result = $uh->handleUpload("/Applications/MAMP/htdocs/elleol/web/img/products/");
         if(array_key_exists("success", $result) && $result["success"] == true) {
-            $return = array("success" => true);
+            $return = array("success" => true, "width" => $result["width"], "height" => $result["height"]);
         } else {
             $return = array("responseCode" => 400, "error" => "Error uploading file");
         }
 
         $return=json_encode($return);//jscon encode the array
         return new Response($return,200,array('Content-Type'=>'application/json')); 
+    }
+
+    public function imageCropAction() {
+        $request = $this->getRequest();
+        $x = intval($request->request->get('x'));
+        $y = intval($request->request->get('y'));
+        $w = intval($request->request->get('w'));
+        $h = intval($request->request->get('h'));
+        $filepath = $request->request->get('filepath');
+        $em = $this->getDoctrine()->getEntityManager();
+        $targ_w = 240;
+        $targ_h = 340;
+
+        $webRootDir = "/Applications/MAMP/htdocs/elleol/web";
+        $fileDir = dirname($filepath);
+        $fileName = basename($filepath);
+        $fileName = explode(".", $fileName);
+        $fileName = $fileName[0];
+        $finalSrc = $fileDir . "/" . $fileName . "_thumb.jpg";
+        $tempFilePath = $webRootDir . "/" . $fileDir . "/" . $fileName . ".jpg";
+        $finalFilePath = $webRootDir . $finalSrc;
+
+        $this->get('logger')->info('CROP: webroot: ' . $webRootDir);
+        $this->get('logger')->info('CROP: fileDir: ' . $fileDir);
+        $this->get('logger')->info('CROP: fileName: ' . $fileName);
+        $this->get('logger')->info('CROP: finalSrc: ' . $finalSrc);
+        $this->get('logger')->info('CROP: tempFilePath: ' . $tempFilePath);
+        $this->get('logger')->info('CROP: finalFilePath: ' . $finalFilePath);
+
+        $src = imagecreatefromjpeg($tempFilePath);
+        $tmp = imagecreatetruecolor($targ_w, $targ_h);
+        imagecopyresampled($tmp, $src, 0, 0, $x, $y, $targ_w, $targ_h, $w, $h);
+        $this->get('logger')->info("CROP: imagecopyresampled($tmp, $src, 0, 0, $x, $y, $targ_w, $targ_h, $w, $h);");
+        if(imagejpeg($tmp, $finalFilePath, 100)) {
+            $return = array("success" => true, "src" => $finalSrc);
+        } else {
+            $return = array("error" => "Failed creating cropped image");
+        } 
+        imagedestroy($tmp);
+        imagedestroy($src);
+        $return=json_encode($return);//jscon encode the array
+        return new Response($return,200,array('Content-Type'=>'application/json'));         
     }
 
     private function getErrorMessages(\Symfony\Component\Form\Form $form) {

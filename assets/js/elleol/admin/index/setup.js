@@ -7,11 +7,50 @@ $(document).ready(function() {
             debug: false,
             onComplete: function(id, fileName, responseJSON){
                 var src = "/img/products/" + fileName;
-                $("#thumb").attr("src", src);
-                $("#product_image").val(src);
+                var rx = 240;
+                var ry = 340;
+                var ratio = rx/ry;
+
+                var updateCoords = function(c) {
+                    $("#x").val(c.x);
+                    $("#y").val(c.y);
+                    $("#w").val(c.w);
+                    $("#h").val(c.h);
+                    $("#prething").JcropPreviewUpdate(c);
+                };
+
+                $("#full").parent().show();
+                $("#full").attr("src", src);
+
+                $("#prething").show().JcropPreview({ 
+                    jcropImg: $("#full"),
+                    defaultWidth: 240,
+                    defaultHeight: 340
+                 });
+                $("#thumb").closest("li").hide();
+                $("#prething").closest("li").show();
+                $("#full").Jcrop({
+                    aspectRatio: ratio,
+                    onSelect: updateCoords,
+                    onChange: updateCoords
+                });
+
+                $("#btn_crop").click(function() {
+                    $.post($(this).attr("data-action"), {
+                        filepath: src,
+                        x: $("#x").val(),
+                        y: $("#y").val(),
+                        w: $("#w").val(),
+                        h: $("#h").val()
+                    }, function(response) {
+                        console.log("Thanks: " + JSON.stringify(response));
+                    }, "json");
+
+                    return false;
+                });
             }
         });  
-        $("#imageUploadButton").css("margin", "0");      
+        $("#imageUploadButton").css("margin", "0"); 
     }
 
     $("ul.products li")
@@ -20,6 +59,6 @@ $(document).ready(function() {
         })
         .mouseleave(function() {
             $(this).find(".thumbnail .action-panel").fadeTo(100, 0).find(".btn-toolbar").fadeTo(100, 0);
-        });
+    });
 
 });

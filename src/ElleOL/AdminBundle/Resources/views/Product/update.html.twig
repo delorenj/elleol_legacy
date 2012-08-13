@@ -2,7 +2,7 @@
 {% form_theme form '::fields.html.twig' %}
 
 {% block jssetup %}
-    require(['lib/fileuploader', 'elleol/admin/index/setup'], function() {
+    require(['lib/jquery.jcrop.preview', 'lib/jquery.Jcrop', 'lib/fileuploader', 'elleol/admin/index/setup'], function() {
     });                        
 {% endblock %}
 

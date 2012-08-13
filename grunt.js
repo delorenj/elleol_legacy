@@ -121,7 +121,7 @@ module.exports = function(grunt) {
     watch: {
       jslib: {
         files: 'assets/js/**/*',
-        tasks: 'copy'
+        tasks: 'lint copy'
       },     
       css: {
         files: 'assets/less/**/*.less',

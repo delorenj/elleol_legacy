@@ -2,14 +2,25 @@
 		<form novalidate=true action="{{ path(post, {id: product.id}) }}" method="post" {{ form_enctype(form) }}>			
 			<fieldset>
 				<div id="upload-area" data-action="{{path('image_upload')}}">
-					<ul class="thumbnails">
-						<li class="span4">
+					<ul class="thumbnails">						
+						<li class="span4" style="display:none;">
+							<img src="" height="300" id="full">
+							<button id="btn_crop" class="btn btn-primary" data-action="{{path('image_crop')}}">Crop</button>
+						</li>		
+						<li style="display:none;">
 							<a class="thumbnail" href="#">
-								{% if not product.image %}
-									<img src="http://placehold.it/240x340" id="thumb">
-								{% else %}
-									<img src="{{product.image}}" id="thumb">
-								{% endif %}
+								<div id="prething"></div>								
+							</a>							
+						</li>	
+						<li>
+							<a class="thumbnail" href="#">
+								<div id="preview">
+									{% if product.image %}
+										<img src="{{product.image}}" id="thumb">
+									{% else %}
+										<img src="http://placehold.it/240x340&Preview" id="thumb">
+									{% endif %}
+								</div>
 							</a>
 						</li>
 					</ul>
@@ -24,6 +35,10 @@
 				    {{ form_row(form.description, {'attr': {'rows': 4}}) }}
 				    {{ form_row(form.price) }}
 				    {{ form_rest(form) }}
+					<input type="hidden" id="x" name="x" />
+					<input type="hidden" id="y" name="y" />
+					<input type="hidden" id="w" name="w" />
+					<input type="hidden" id="h" name="h" />				    
 				</div>
 			    <button type="submit" class="btn btn-primary">Save</button>
 			    <a class="btn btn-primary" href="{{path('ElleOLAdminBundle_homepage')}}">Cancel</a>				    

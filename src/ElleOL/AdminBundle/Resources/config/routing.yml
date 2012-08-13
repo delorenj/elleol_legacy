@@ -32,3 +32,9 @@ image_upload:
     defaults: { _controller: ElleOLAdminBundle:Product:imageUpload }
     requirements:
         _method: POST
+
+image_crop:
+    pattern: /admin/product/upload/crop
+    defaults: { _controller: ElleOLAdminBundle:Product:imageCrop }
+    requirements:
+        _method: POST

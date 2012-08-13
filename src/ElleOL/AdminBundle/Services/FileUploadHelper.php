@@ -144,11 +144,29 @@ class FileUploadHelper {
         }
         
         if ($this->file->save($uploadDirectory . $filename . '.' . $ext)){
-            return array('success'=>true);
+            list($width, $height, $type, $attr) = getimagesize($uploadDirectory . $filename . '.' . $ext);
+            return array('success'=>true, 'width'=>$width, 'height'=>$height);
         } else {
             return array('error'=> 'Could not save uploaded file.' .
                 'The upload was cancelled, or server error encountered');
         }
         
-    }    
+    }   
+
+    function cropImage($filepath, $w, $h, $x, $y) {
+        $targ_w = 240;
+        $targ_h = 340;
+        $uploadDirectory = "/Applications/MAMP/htdocs/elleol/web";
+        $src = imagecreatefromjpeg($uploadDirectory.$filepath);
+        $tmp = imagecreatetruecolor($targ_w, $targ_h);
+        imagecopyresampled($tmp, $src, 0, 0, $x, $y, $targ_w, $targ_h, $w, $h);
+        if(imagejpeg($tmp, $uploadDirectory.dirname($filepath).basename($filepath)."_thumb.jpg",100)) {
+            $return = array("success" => true, "src" => dirname($filepath).basename($filepath)."_thumb.jpg");
+        } else {
+            $return = array("error" => "Failed creating cropped image");
+        } 
+        imagedestroy($tmp);
+        imagedestroy($src);
+        return $return;
+    } 
 }
