@@ -109,22 +109,13 @@ class ProductController extends Controller
         $this->get('logger')->info('CROP: tempFilePath: ' . $tempFilePath);
         $this->get('logger')->info('CROP: finalFilePath: ' . $finalFilePath);
 
-        $src = imagecreatefromjpeg($tempFilePath);
-        $tmp = imagecreatetruecolor($targ_w, $targ_h);
-        imagecopyresampled($tmp, $src, 0, 0, $x, $y, $targ_w, $targ_h, $w, $h);
-        $this->get('logger')->info("CROP: imagecopyresampled($tmp, $src, 0, 0, $x, $y, $targ_w, $targ_h, $w, $h);");
-        if(imagejpeg($tmp, $finalFilePath, 100)) {
-            $return = array("success" => true, "src" => $finalSrc);
-        } else {
-            $return = array("error" => "Failed creating cropped image");
-        } 
-        imagedestroy($tmp);
-        imagedestroy($src);
-        $return=json_encode($return);//jscon encode the array
+        $uh = $this->get('upload_helper');
+        $result = $uh->cropImage($finalSrc, $finalFilePath, $tempFilePath, $x, $y, $w, $h, $targ_w, $targ_h);
+        $return=json_encode($result);//jscon encode the array
         return new Response($return,200,array('Content-Type'=>'application/json'));         
     }
 
-    private function getErrorMessages(\Symfony\Component\Form\Form $form) {
+    private function getErrorMessages(Symfony\Component\Form\Form $form) {
         $errors = array();
         foreach ($form->getErrors() as $key => $error) {
             $template = $error->getMessageTemplate();

@@ -66,6 +66,89 @@ class FileUploadHelper {
     private $file;
     protected $securityContext;
     protected $logger;
+    protected $image;
+    protected $image_type;
+ 
+    private function load($filename) {
+ 
+      $image_info = getimagesize($filename);
+      $this->image_type = $image_info[2];
+      if( $this->image_type == IMAGETYPE_JPEG ) {
+ 
+         $this->image = imagecreatefromjpeg($filename);
+      } elseif( $this->image_type == IMAGETYPE_GIF ) {
+ 
+         $this->image = imagecreatefromgif($filename);
+      } elseif( $this->image_type == IMAGETYPE_PNG ) {
+ 
+         $this->image = imagecreatefrompng($filename);
+      }
+    }
+
+    private function save($filename, $image_type=IMAGETYPE_JPEG, $compression=75, $permissions=null) {
+ 
+      if( $image_type == IMAGETYPE_JPEG ) {
+         imagejpeg($this->image,$filename,$compression);
+      } elseif( $image_type == IMAGETYPE_GIF ) {
+ 
+         imagegif($this->image,$filename);
+      } elseif( $image_type == IMAGETYPE_PNG ) {
+ 
+         imagepng($this->image,$filename);
+      }
+      if( $permissions != null) {
+ 
+         chmod($filename,$permissions);
+      }
+    }
+
+    private function output($image_type=IMAGETYPE_JPEG) {
+ 
+      if( $image_type == IMAGETYPE_JPEG ) {
+         imagejpeg($this->image);
+      } elseif( $image_type == IMAGETYPE_GIF ) {
+ 
+         imagegif($this->image);
+      } elseif( $image_type == IMAGETYPE_PNG ) {
+ 
+         imagepng($this->image);
+      }
+    }
+
+    private function getWidth() {
+ 
+      return imagesx($this->image);
+    }
+
+    private function getHeight() {
+ 
+      return imagesy($this->image);
+    }
+
+    private function resizeToHeight($height) {
+ 
+      $ratio = $height / $this->getHeight();
+      $width = $this->getWidth() * $ratio;
+      $this->resize($width,$height);
+    }
+ 
+    private function resizeToWidth($width) {
+      $ratio = $width / $this->getWidth();
+      $height = $this->getheight() * $ratio;
+      $this->resize($width,$height);
+    }
+ 
+    private function scale($scale) {
+      $width = $this->getWidth() * $scale/100;
+      $height = $this->getheight() * $scale/100;
+      $this->resize($width,$height);
+    }
+ 
+    private function resize($width,$height) {
+      $new_image = imagecreatetruecolor($width, $height);
+      imagecopyresampled($new_image, $this->image, 0, 0, 0, 0, $width, $height, $this->getWidth(), $this->getHeight());
+      $this->image = $new_image;
+    }      
 
     public function __construct($securityContext, $logger) {
         $this->logger = $logger;        
@@ -144,8 +227,11 @@ class FileUploadHelper {
         }
         
         if ($this->file->save($uploadDirectory . $filename . '.' . $ext)){
-            list($width, $height, $type, $attr) = getimagesize($uploadDirectory . $filename . '.' . $ext);
-            return array('success'=>true, 'width'=>$width, 'height'=>$height);
+            $this->load($uploadDirectory . $filename . '.' . $ext);
+            $this->getHeight() > $this->getWidth() ? $this->resizeToHeight(480) : $this->resizeToWidth(650);
+            // $this->resizeToWidth(650);
+            $this->save($uploadDirectory . $filename . '.' . $ext);
+            return array('success'=>true, 'width'=>$this->getWidth(), 'height'=>$this->getHeight());
         } else {
             return array('error'=> 'Could not save uploaded file.' .
                 'The upload was cancelled, or server error encountered');
@@ -153,15 +239,13 @@ class FileUploadHelper {
         
     }   
 
-    function cropImage($filepath, $w, $h, $x, $y) {
-        $targ_w = 240;
-        $targ_h = 340;
-        $uploadDirectory = "/Applications/MAMP/htdocs/elleol/web";
-        $src = imagecreatefromjpeg($uploadDirectory.$filepath);
+    function cropImage($finalSrc, $finalFilePath, $tempFilePath, $x, $y, $w, $h, $targ_w, $targ_h) {
+        $src = imagecreatefromjpeg($tempFilePath);
         $tmp = imagecreatetruecolor($targ_w, $targ_h);
         imagecopyresampled($tmp, $src, 0, 0, $x, $y, $targ_w, $targ_h, $w, $h);
-        if(imagejpeg($tmp, $uploadDirectory.dirname($filepath).basename($filepath)."_thumb.jpg",100)) {
-            $return = array("success" => true, "src" => dirname($filepath).basename($filepath)."_thumb.jpg");
+        $this->logger->info("CROP: imagecopyresampled($tmp, $src, 0, 0, $x, $y, $targ_w, $targ_h, $w, $h);");
+        if(imagejpeg($tmp, $finalFilePath, 100)) {
+            $return = array("success" => true, "src" => $finalSrc);
         } else {
             $return = array("error" => "Failed creating cropped image");
         } 

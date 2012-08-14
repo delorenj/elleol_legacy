@@ -43,7 +43,13 @@ $(document).ready(function() {
                         w: $("#w").val(),
                         h: $("#h").val()
                     }, function(response) {
-                        console.log("Thanks: " + JSON.stringify(response));
+                        if(response.success) {
+                            console.log(JSON.stringify(response));
+                            $("#full").parent().hide();
+                            $("#prething").hide();
+                            $("#thumb").attr("src", response.src).closest('li').show();
+                            $("#product_image").val(response.src);
+                        }
                     }, "json");
 
                     return false;
