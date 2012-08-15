@@ -228,8 +228,8 @@ class FileUploadHelper {
         
         if ($this->file->save($uploadDirectory . $filename . '.' . $ext)){
             $this->load($uploadDirectory . $filename . '.' . $ext);
-            $this->getHeight() > $this->getWidth() ? $this->resizeToHeight(480) : $this->resizeToWidth(650);
-            // $this->resizeToWidth(650);
+            // $this->getHeight() > $this->getWidth() ? $this->resizeToHeight(480) : $this->resizeToWidth(650);
+            $this->resizeToWidth(650);
             $this->save($uploadDirectory . $filename . '.' . $ext);
             return array('success'=>true, 'width'=>$this->getWidth(), 'height'=>$this->getHeight());
         } else {

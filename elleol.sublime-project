@@ -3,7 +3,7 @@
     [
         {
             "name": "Root",
-            "path": "/Applications/MAMP/htdocs/elleol",
+            "path": "/",
             "folder_exclude_patterns": ["app/cache", "app/logs", "node_modules"]
         },
         {

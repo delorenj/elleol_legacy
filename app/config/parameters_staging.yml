@@ -1,0 +1,14 @@
+parameters:
+    database_driver: pdo_mysql
+    database_host: localhost
+    database_name: elleol
+    database_user: root
+    mailer_transport: smtp
+    mailer_host: localhost
+    mailer_user: null
+    mailer_password: null
+    locale: en
+    secret: a388f76448f5810573ff7ead6dab3d65e
+    #### SERVER SPECIFIC ####
+    database_port: '3306'    
+    database_password: Iree3cam

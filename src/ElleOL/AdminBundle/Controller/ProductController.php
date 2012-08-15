@@ -67,11 +67,12 @@ class ProductController extends Controller
         return $this->render('ElleOLAdminBundle:Default:index.html.twig');
     }
 
-    public function imageUploadAction() {        
+    public function imageUploadAction() { 
+    $this->get('logger')->info('CROP: HERE');       
         $request = $this->getRequest();
         $em = $this->getDoctrine()->getEntityManager();
         $uh = $this->get('upload_helper');
-        $result = $uh->handleUpload("/Applications/MAMP/htdocs/elleol/web/img/products/");
+        $result = $uh->handleUpload($_SERVER["DOCUMENT_ROOT"] . "/img/products/");
         if(array_key_exists("success", $result) && $result["success"] == true) {
             $return = array("success" => true, "width" => $result["width"], "height" => $result["height"]);
         } else {
@@ -92,8 +93,7 @@ class ProductController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $targ_w = 240;
         $targ_h = 340;
-
-        $webRootDir = "/Applications/MAMP/htdocs/elleol/web";
+        $webRootDir = $_SERVER["DOCUMENT_ROOT"];
         $fileDir = dirname($filepath);
         $fileName = basename($filepath);
         $fileName = explode(".", $fileName);
@@ -108,9 +108,10 @@ class ProductController extends Controller
         $this->get('logger')->info('CROP: finalSrc: ' . $finalSrc);
         $this->get('logger')->info('CROP: tempFilePath: ' . $tempFilePath);
         $this->get('logger')->info('CROP: finalFilePath: ' . $finalFilePath);
-
+        
         $uh = $this->get('upload_helper');
         $result = $uh->cropImage($finalSrc, $finalFilePath, $tempFilePath, $x, $y, $w, $h, $targ_w, $targ_h);
+
         $return=json_encode($result);//jscon encode the array
         return new Response($return,200,array('Content-Type'=>'application/json'));         
     }
