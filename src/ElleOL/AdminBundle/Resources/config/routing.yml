@@ -24,7 +24,6 @@ delete_product:
     pattern: /admin/product/{id}/delete
     defaults: { _controller: ElleOLAdminBundle:Product:delete }
     requirements:
-        _method: DELETE    
         id: \d+
 
 image_upload:

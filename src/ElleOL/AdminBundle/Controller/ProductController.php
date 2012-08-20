@@ -2,7 +2,7 @@
 
 namespace ElleOL\AdminBundle\Controller;
 
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException as NFE;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use ElleOL\SiteBundle\Entity\Product as Product;
@@ -11,7 +11,7 @@ use ElleOL\AdminBundle\Form\Type\ProductType as ProductType;
 class ProductController extends Controller
 {
     public function createAction()
-    {
+    {        
         $request = $this->getRequest();
         $repo = $this->getDoctrine()->getRepository("ElleOLSiteBundle:Product");
         $product = new Product();    
@@ -40,6 +40,32 @@ class ProductController extends Controller
     }   
 
 
+    public function deleteAction($id) {
+        $request = $this->getRequest();
+        $em = $this->getDoctrine()->getEntityManager();
+        $repo = $this->getDoctrine()->getRepository('ElleOLSiteBundle:Product');
+        $product = $repo->find($id);
+        $webRootDir = $_SERVER["DOCUMENT_ROOT"];
+
+        if(!$product instanceof Product) {
+            throw new NFE("This product does not exist");            
+        }
+
+
+        if(!is_null($product->getImage())) {
+            if(file_exists($webRootDir . $product->getImage())) {
+                unlink($webRootDir . $product->getImage());
+            }
+            
+            if(file_exists(preg_replace("/_thumb/", "", $webRootDir . $product->getImage()))) {
+                unlink(preg_replace("/_thumb/", "", $webRootDir . $product->getImage()));
+            }
+        }
+        $em->remove($product);
+        $em->flush();
+        return $this->redirect($this->generateUrl('ElleOLAdminBundle_homepage'));
+    }
+
     public function updateAction($id)
     {
         $request = $this->getRequest();
@@ -62,10 +88,6 @@ class ProductController extends Controller
         return $this->render('ElleOLAdminBundle:Product:update.html.twig', array("form" => $form->createView(), "product" => $product));
     }   
 
-    public function deleteAction($id)
-    {
-        return $this->render('ElleOLAdminBundle:Default:index.html.twig');
-    }
 
     public function imageUploadAction() { 
     $this->get('logger')->info('CROP: HERE');       
@@ -97,7 +119,7 @@ class ProductController extends Controller
         $fileDir = dirname($filepath);
         $fileName = basename($filepath);
         $fileName = explode(".", $fileName);
-        $fileName = $fileName[0];
+        $fileName = strtolower($fileName[0]);
         $finalSrc = $fileDir . "/" . $fileName . "_thumb.jpg";
         $tempFilePath = $webRootDir . "/" . $fileDir . "/" . $fileName . ".jpg";
         $finalFilePath = $webRootDir . $finalSrc;

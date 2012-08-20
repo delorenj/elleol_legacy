@@ -226,11 +226,13 @@ class FileUploadHelper {
             }
         }
         
-        if ($this->file->save($uploadDirectory . $filename . '.' . $ext)){
-            $this->load($uploadDirectory . $filename . '.' . $ext);
+        $loweredFilename = strtolower($filename . '.' . $ext);
+
+        if ($this->file->save($uploadDirectory . $loweredFilename)) {
+            $this->load($uploadDirectory . $loweredFilename);
             // $this->getHeight() > $this->getWidth() ? $this->resizeToHeight(480) : $this->resizeToWidth(650);
             $this->resizeToWidth(650);
-            $this->save($uploadDirectory . $filename . '.' . $ext);
+            $this->save($uploadDirectory . $loweredFilename);
             return array('success'=>true, 'width'=>$this->getWidth(), 'height'=>$this->getHeight());
         } else {
             return array('error'=> 'Could not save uploaded file.' .
