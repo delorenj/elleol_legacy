@@ -10,3 +10,4 @@ node_modules
 *~
 web/img/products/*
 app/config/parameters.yml
+.DS_Store
