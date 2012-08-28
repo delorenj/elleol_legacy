@@ -66,10 +66,10 @@
             <ul class="nav nav-list">
                 {% block sidenav %}
                   <li class="nav-header">PRODUCTS</li>
-                  <li class=""><a href="#"><i class="icon-chevron-right"></i>Invitations</a></li>
-                  <li class=""><a href="#"><i class="icon-chevron-right"></i>Wine Labels</a></li>
-                  <li class=""><a href="#"><i class="icon-chevron-right"></i>Cake Toppers</a></li>
-                
+                    <li class="{% if curcat is not defined %}active{% endif %}"><a href="{{path('admin_home')}}"><i class="icon-chevron-right"></i>All Products</a></li>                  
+                  {% for cat in categories %}
+                    <li class="{% if curcat is defined and curcat.slug == cat.slug %}active{% endif %}"><a href="{{path('admin_home_filter', {cat: cat.slug})}}"><i class="icon-chevron-right"></i>{{cat.name}}</a></li>                  
+                  {% endfor %}
                 {% endblock %}
 
               <li class="nav-header">ORDERS</li>

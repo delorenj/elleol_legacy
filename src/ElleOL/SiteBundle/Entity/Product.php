@@ -9,6 +9,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity as UniqueEntity;
 /**
  * @ORM\Entity(repositoryClass="ElleOL\SiteBundle\Entity\ProductRepository")
  * @ORM\Table(name="product")
+ * @ORM\HasLifecycleCallbacks() 
  */
 class Product
 {
@@ -49,6 +50,12 @@ class Product
      * @ORM\Column(type="datetime")     
      */
     private $created_at;
+
+
+    /**
+     *  @ORM\ManyToOne(targetEntity="Category", inversedBy="products")
+     */
+    private $category;
 
 
     /**
@@ -170,4 +177,34 @@ class Product
     {
         return $this->created_at;
     }
+
+    /**
+     * Set category
+     *
+     * @param ElleOL\SiteBundle\Entity\Category $category
+     * @return Product
+     */
+    public function setCategory(\ElleOL\SiteBundle\Entity\Category $category = null)
+    {
+        $this->category = $category;
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return ElleOL\SiteBundle\Entity\Category 
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function initCreatedAt()
+    {
+        $this->setCreatedAt(new \DateTime());
+    }        
 }

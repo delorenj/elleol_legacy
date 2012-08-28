@@ -1,6 +1,38 @@
-ElleOLAdminBundle_homepage:
+admin_home:
     pattern:  /admin
-    defaults: { _controller: ElleOLAdminBundle:Default:index }
+    defaults: { _controller: ElleOLAdminBundle:Product:index }
+
+admin_home_filter:
+    pattern: /admin/category/{cat}
+    defaults: { _controller: ElleOLAdminBundle:Product:indexFilter }
+
+category_index:
+    pattern: /admin/categories
+    defaults: { _controller: ElleOLAdminBundle:Category:index }
+
+category_new:
+    pattern: /admin/category/new
+    defaults: { _controller: ElleOLAdminBundle:Category:new }
+    requirements:
+        _method: GET
+
+category_create:
+    pattern: /admin/category/new
+    defaults: { _controller: ElleOLAdminBundle:Category:create }
+    requirements:
+        _method: POST
+
+category_edit:
+    pattern: /admin/category/edit
+    defaults: { _controller: ElleOLAdminBundle:Category:edit }
+    requirements:
+        _method: GET
+
+category_update:
+    pattern: /admin/category/edit
+    defaults: { _controller: ElleOLAdminBundle:Category:update}
+    requirements:
+        _method: POST
 
 new_product:
     pattern: /admin/product/new

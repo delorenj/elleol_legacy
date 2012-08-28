@@ -5,15 +5,41 @@ namespace ElleOL\AdminBundle\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException as NFE;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
-use ElleOL\SiteBundle\Entity\Product as Product;
-use ElleOL\AdminBundle\Form\Type\ProductType as ProductType;
+use ElleOL\SiteBundle\Entity\Product;
+use ElleOL\SiteBundle\Entity\Category;
+use ElleOL\AdminBundle\Form\Type\ProductType;
 
 class ProductController extends Controller
 {
+    public function indexAction()
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        $products = $this->getDoctrine()->getRepository("ElleOLSiteBundle:Product")->findAll();
+        $categories = $this->getDoctrine()->getRepository("ElleOLSiteBundle:Category")->findAll();
+        return $this->render('ElleOLAdminBundle:Default:index.html.twig', array("products" => $products, "categories" => $categories));
+    }
+
+    public function indexFilterAction($cat)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        $categories = $this->getDoctrine()->getRepository("ElleOLSiteBundle:Category")->findAll();
+        $cat = $this->getDoctrine()->getRepository("ElleOLSiteBundle:Category")->findOneBySlug($cat);
+
+        if(!$cat instanceof Category) {
+            throw new NFE("Category not found!");
+        }
+
+        $products = $cat->getProducts();
+
+        return $this->render('ElleOLAdminBundle:Default:index.html.twig', array("products" => $products, "categories" => $categories, "curcat" => $cat));
+    }
+
     public function createAction()
     {        
         $request = $this->getRequest();
         $repo = $this->getDoctrine()->getRepository("ElleOLSiteBundle:Product");
+        $categories = $this->getDoctrine()->getRepository("ElleOLSiteBundle:Category")->findAll();
+
         $product = new Product();    
         $product->setCreatedAt(new \DateTime());  
         $form = $this->createForm(new ProductType(), $product);
@@ -23,10 +49,10 @@ class ProductController extends Controller
             $em->persist($product);
             $em->flush();
             $this->get('session')->setFlash("notice", "Product Created Successfully!");
-            return $this->redirect($this->generateUrl('ElleOLAdminBundle_homepage'));
+            return $this->redirect($this->generateUrl('admin_home'));
         } else {
             $this->get('logger')->info('CREATE: ' . json_encode($this->getErrorMessages($form)));
-            return $this->render('ElleOLAdminBundle:Product:new.html.twig', array("form" => $form->createView(), "product" => $product));
+            return $this->render('ElleOLAdminBundle:Product:new.html.twig', array("form" => $form->createView(), "product" => $product, "categories" => $categories));
         }
     }
 
@@ -34,9 +60,10 @@ class ProductController extends Controller
     {
         $request = $this->getRequest();
         $repo = $this->getDoctrine()->getRepository("ElleOLSiteBundle:Product");
+        $categories = $this->getDoctrine()->getRepository("ElleOLSiteBundle:Category")->findAll();        
         $product = new Product();    
         $form = $this->createForm(new ProductType(), $product);
-        return $this->render('ElleOLAdminBundle:Product:new.html.twig', array("form" => $form->createView(), "product" => $product));
+        return $this->render('ElleOLAdminBundle:Product:new.html.twig', array("form" => $form->createView(), "product" => $product, "categories" => $categories));
     }   
 
 
@@ -63,13 +90,14 @@ class ProductController extends Controller
         }
         $em->remove($product);
         $em->flush();
-        return $this->redirect($this->generateUrl('ElleOLAdminBundle_homepage'));
+        return $this->redirect($this->generateUrl('admin_home'));
     }
 
     public function updateAction($id)
     {
         $request = $this->getRequest();
         $repo = $this->getDoctrine()->getRepository("ElleOLSiteBundle:Product");
+        $categories = $this->getDoctrine()->getRepository("ElleOLSiteBundle:Category")->findAll();        
         $product = $repo->find($id);        
         $form = $this->createForm(new ProductType(), $product);
 
@@ -80,17 +108,16 @@ class ProductController extends Controller
                 $em->persist($product);
                 $em->flush();
                 $this->get('session')->setFlash("notice", "Product Updated Successfully!");
-                return $this->redirect($this->generateUrl('ElleOLAdminBundle_homepage'));
+                return $this->redirect($this->generateUrl('admin_home'));
             } else {
                 $this->get('logger')->info('UPDATE: ' . json_encode($this->getErrorMessages($form)));
             }
         }
-        return $this->render('ElleOLAdminBundle:Product:update.html.twig', array("form" => $form->createView(), "product" => $product));
+        return $this->render('ElleOLAdminBundle:Product:update.html.twig', array("form" => $form->createView(), "product" => $product, "categories" => $categories));
     }   
 
 
     public function imageUploadAction() { 
-    $this->get('logger')->info('CROP: HERE');       
         $request = $this->getRequest();
         $em = $this->getDoctrine()->getEntityManager();
         $uh = $this->get('upload_helper');

@@ -10,10 +10,8 @@ class DefaultController extends Controller
     public function indexAction()
     {
     	$em = $this->getDoctrine()->getEntityManager();
-    	$repo = $this->getDoctrine()->getRepository("ElleOLSiteBundle:Product");
-
-    	$products = $repo->findAll();
-
-        return $this->render('ElleOLAdminBundle:Default:index.html.twig', array("products" => $products));
+    	$products = $this->getDoctrine()->getRepository("ElleOLSiteBundle:Product")->findAll();
+    	$categories = $this->getDoctrine()->getRepository("ElleOLSiteBundle:Category")->findAll();
+        return $this->render('ElleOLAdminBundle:Default:index.html.twig', array("products" => $products, "categories" => $categories));
     }
 }

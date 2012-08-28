@@ -6,10 +6,15 @@ use Symfony\Component\Yaml\Parser;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use ElleOL\SiteBundle\Entity\Product;
 
-class LoadProductData implements FixtureInterface
+class LoadProductData extends AbstractFixture implements FixtureInterface, OrderedFixtureInterface
 {
+    public function getOrder() {
+        return 2;
+    }
 
     public function load(ObjectManager $manager)
     {
@@ -25,7 +30,7 @@ class LoadProductData implements FixtureInterface
             $p->setDescription($product["description"]);
             $p->setPrice($product["price"]);
             $p->setImage($product["image"]);
-            $p->setCreatedAt(new \DateTime());
+            $p->setCategory($manager->merge($this->getReference($product["category"])));
             $manager->persist($p);
         }     
         $manager->flush();

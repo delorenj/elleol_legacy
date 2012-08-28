@@ -18,11 +18,20 @@ class ProductType extends AbstractType
             array(  'currency' => 'USD',
                     'attr' => 
                     array('placeholder' => 'Enter the price of the product')));
+        
         $builder->add('description', 'textarea', 
             array('attr' => 
                 array('placeholder' => 'Describe the product, or leave blank.')));
+        
         $builder->add('image', null, array("attr" => array("readonly" => true, "placeholder" => "No image uploaded yet!")));
-        // $builder->add('image', 'hidden');
+        
+        $builder->add('category', 'entity', array(
+            'class' => 'ElleOL\SiteBundle\Entity\Category',
+            'multiple' => false,
+            'query_builder' => function($repository) { return $repository->createQueryBuilder('p')->orderBy('p.id', 'ASC'); },
+            'property' => 'name',
+            // 'attr' => array("style" => "width: 400px")
+        ));
     }
 
 	public function setDefaultOptions(OptionsResolverInterface $resolver)
