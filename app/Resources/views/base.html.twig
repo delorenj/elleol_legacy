@@ -48,7 +48,7 @@
                             <ul class="nav pull-right">                        
                                 {% if is_granted('ROLE_USER') %}
                                     {% if is_granted('ROLE_ADMIN') %}
-                                        <li class="{% if app.request.attributes.get('_route') == 'ElleOLAdminBundle_homepage' %}active{% endif %}"><a href="{{path ('ElleOLAdminBundle_homepage')}}">Admin Panel</a></li>
+                                        <li class="{% if app.request.attributes.get('_route') == 'ElleOLAdminBundle_homepage' %}active{% endif %}"><a href="{{path ('admin_home')}}">Admin Panel</a></li>
                                     {% endif %}
                                 
                                     {% block navwidgets %}
