@@ -5,6 +5,8 @@ namespace ElleOL\SiteBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity as UniqueEntity;
+use Doctrine\Common\Collections\ArrayCollection;
+use ElleOL\AdminBundle\Services\Helpers;
 
 /**
  * @ORM\Entity(repositoryClass="ElleOL\SiteBundle\Entity\ProductRepository")
@@ -57,6 +59,10 @@ class Product
      */
     private $category;
 
+    /**
+     *  @ORM\ManyToMany(targetEntity="Tag", inversedBy="tags")
+     */
+    private $tags;
 
     /**
      * Get id
@@ -207,4 +213,52 @@ class Product
     {
         $this->setCreatedAt(new \DateTime());
     }        
+
+    public function __construct()
+    {
+        $this->tags = new ArrayCollection();
+    }
+    
+    /**
+     * Add tags
+     *
+     * @param ElleOL\SiteBundle\Entity\Tag $tags
+     * @return Product
+     */
+    public function addTag(\ElleOL\SiteBundle\Entity\Tag $tags)
+    {
+        $this->tags[] = $tags;
+        return $this;
+    }
+
+    /**
+     * Remove tags
+     *
+     * @param ElleOL\SiteBundle\Entity\Tag $tags
+     */
+    public function removeTag(\ElleOL\SiteBundle\Entity\Tag $tags)
+    {
+        $this->tags->removeElement($tags);
+    }
+
+    /**
+     * Get tags
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    public function hasTag($name) {
+
+        foreach($this->tags as $t) {
+            if($t->getSlug() == Helpers::slugify($name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

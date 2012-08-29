@@ -19,6 +19,7 @@ class LoadProductData extends AbstractFixture implements FixtureInterface, Order
     public function load(ObjectManager $manager)
     {
         $yaml = new Parser();
+        $tagRepo = $manager->getRepository("ElleOLSiteBundle:Tag");
         try {
             $value = $yaml->parse(file_get_contents('src/ElleOL/SiteBundle/DataFixtures/data/products.yml'));
         } catch (ParseException $e) {
@@ -31,6 +32,9 @@ class LoadProductData extends AbstractFixture implements FixtureInterface, Order
             $p->setPrice($product["price"]);
             $p->setImage($product["image"]);
             $p->setCategory($manager->merge($this->getReference($product["category"])));
+            foreach($product["tags"] as $tag) {
+                $tagRepo->linkTag($p, $tag);
+            }
             $manager->persist($p);
         }     
         $manager->flush();

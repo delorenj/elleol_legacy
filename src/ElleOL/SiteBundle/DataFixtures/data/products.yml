@@ -4,6 +4,7 @@
   price: 15.99
   image: "/img/products/bd30.png"
   category: "invitations"
+  tags: ["Birthday", "Dirty 30", "Funny", "Party"]
 
 2:
   name:    "Beer-B-Q"
@@ -11,3 +12,4 @@
   price: 24.99
   image: "/img/products/bbq.png"
   category: "invitations"
+  tags: ["seasonal", "summer", "bbq", "party"]
