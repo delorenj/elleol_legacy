@@ -1,0 +1,11 @@
+{% extends '::bigbase.html.twig' %}
+
+{% block jssetup %}
+    require(['elleol/Product/index/setup'], function() {
+        $('#myCarousel').carousel();    
+    });
+{% endblock %}
+
+{% block content %}
+hi
+{% endblock %}

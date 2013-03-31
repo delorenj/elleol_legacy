@@ -1,5 +1,5 @@
-ElleOLSiteBundle_homepage:
-    pattern:  /
+product_index:
+    pattern:  /products
     defaults: { _controller: ElleOLSiteBundle:Product:index }
 
 show_product:
@@ -21,3 +21,7 @@ custom_design_index:
 my_designs_index:
     pattern: /custom
     defaults: { _controller: ElleOLSiteBundle:MyDesign:index }
+
+homepage:
+    pattern: /
+    defaults: { _controller: ElleOLSiteBundle:Home:index }
